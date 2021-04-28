@@ -10,15 +10,11 @@ class LandingPage extends Component {
     this.state = {
     };
   }
-  componentDidMount(){
-    document.body.classList.toggle("index-page");
-    return function cleanup() {
-      document.body.classList.toggle("index-page");
-    };
-  }
+ 
   render() {
       return (
         <>
+        <div className="index-page">
           <Navbar />
             <div className="wrapper">
               <Header />
@@ -26,6 +22,7 @@ class LandingPage extends Component {
                   
                 </div>
             </div>
+        </div>
         </>
       )
   }

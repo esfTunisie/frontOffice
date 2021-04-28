@@ -133,7 +133,7 @@ export default function Register() {
                           </InputGroupAddon>
                           <Input
                             placeholder="Password"
-                            type="text"
+                            type="Password"
                             onFocus={(e) => setPasswordFocus(true)}
                             onBlur={(e) => setPasswordFocus(false)}
                           />
