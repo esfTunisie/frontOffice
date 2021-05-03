@@ -116,9 +116,17 @@ export default function Navbars() {
                     <i className="tim-icons icon-bullet-list-67" />
                     Register
                   </DropdownItem>
-                  <DropdownItem tag={Link} to="/profile-page">
+                  <DropdownItem tag={Link} to="/espace-client">
                     <i className="tim-icons icon-single-02" />
                     Profile
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/template">
+                    <i className="tim-icons icon-single-02" />
+                    Template
+                  </DropdownItem>
+                  <DropdownItem tag={Link} to="/offre">
+                    <i className="tim-icons icon-single-02" />
+                    Offre
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
@@ -129,7 +137,7 @@ export default function Navbars() {
                   target="_blank"
                 >
                   <Link to="/login">
-                  <i className="tim-icons icon-spaceship" /> Login
+                  <i className="tim-icons icon-spaceship" />Login
                   </Link> 
                 </Button>
               </NavItem>
