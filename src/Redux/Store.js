@@ -4,7 +4,7 @@ import logger from "redux-logger-simple";
 import { persistStore, persistReducer } from "redux-persist";
 import storageLocal  from "redux-persist/lib/storage/session";
 import AuthReducer from "./Reducers/AuthReducer"
-import {AsyncStorage }from "react"
+import { AsyncStorage }from "react"
 
 const persistConfig = {
   key: "root",
