@@ -18,6 +18,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 
+
 export default function Navbars() {
     const [collapseOpen, setCollapseOpen] = React.useState(false);
     const [collapseOut, setCollapseOut] = React.useState("");
@@ -61,7 +62,7 @@ export default function Navbars() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand to="/" tag={Link} id="navbar-brand">
-              <span>Shifti</span>
+              <span>shifti</span>
             </NavbarBrand>
             <button
               aria-expanded={collapseOpen}
