@@ -21,10 +21,9 @@ class Header extends Component {
 
    
    onSubmit = (event) => {
+     
     event.preventDefault(event);
 
-    const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
      
       let formdata =new FormData()
       formdata.append('first_name',event.target.name.value)
@@ -38,24 +37,9 @@ class Header extends Component {
       };
       fetch(apiURL+'/register',requestOptions)
       .then(response => {
-        if(response.status == 200)
+        if(response.status == 201)
         {
-        console.log("res",response);
-          response.json().then(result =>{
-            this.handleSubmit(event);
-            window.location='/espace-client'
-            console.log(result);
-          })
-        }
-      })
-      
-
-    
-  };
-
-  handleSubmit=(event)=>{
-    event.preventDefault(event)
-    console.log(event.target.name.value);
+          console.log("name",event.target.name.value);
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const requestOptions = {
@@ -68,13 +52,17 @@ class Header extends Component {
     };
     
     fetch(apiURL+"/api/login_check", requestOptions)
+  
       .then(response => {
-        if(response.status == 201){
+        if(response.status == 200){
+          
           response.text().then(result =>{
+            console.log(result);
             const str = JSON.stringify(result).substring(14)
             const newStr = str.substring(0, str.length - 4)
             const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:event.target.email.value,password:event.target.password1.value}
            this.props.dispatch(action)
+
             
           })
   
@@ -85,11 +73,19 @@ class Header extends Component {
         }
       })
       .catch(error => console.log('error', error));
-   
-  }
+          
+      window.location='/espace-client'
+        }
+      })
+      
+
+    
+  };
+
+  
 
   render() {
-    console.log(this.state.first_name);
+    
       return (
         <div className="page-header header-filter">
         <div className="squares square1" />
@@ -126,4 +122,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
+import { connect } from 'react-redux';
 import { apiURL } from '../../Config/config';
 
 
@@ -63,7 +64,7 @@ class EntrepriseForm extends Component {
         formdata.append("chiffre_affaire",this.state.affaire)
         formdata.append("secteur_activite",this.state.activite)
        await fetch(apiURL+'/api/Add_magasin_front',{headers:{
-            'Authorization': "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MTk2OTU3NzYsImV4cCI6MTYxOTY5OTM3Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZmFyb3VrYnIwNTBAZ21haWwuY29tIn0.i_S0gp5OPV9Zlabb2F0DWQS82afMUZVQhu-wLbwQaVIrlUf2FTaBEYTFMjv0ZEXSc4yJtK_NNlEFSIoewtLk7wlh6ETkTcPK6c3zJZZ1x5WTUZFxer90hXDmStwT1BIUvSH13CBQnPofRqmJWYqK-KCTFUWZ6eQXjxggB-O64FE1KvU-l0DMdKGfNQZ1-xD0ca4U8kXS7G97Sekwb5Zsce56xBYglvyI2Jbg59kCvX_oH6i_Y9qtEGdjAWL110_aV6uvGzoGvIlxGvbcr_E18NVH-HuViPG9UvJ3pOn835JaKC6QXWWanFr45t_CVU1B_9ySATuRJ86SNA32HC3KEw",
+            'Authorization': "Bearer "+this.props.auth.token,
             'Content-Type': 'application/json'
           },
           method:'POST',
@@ -139,4 +140,17 @@ class EntrepriseForm extends Component {
     }
   
 };
-export default EntrepriseForm;
+const mapDispatchToProps = (dispatch) => {
+    return {
+      dispatch: (action) => {
+        dispatch(action);
+      },
+    };
+  };
+  const mapStateToProps = (state) => {
+    return {
+      auth: state.auth,
+    };
+  };
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(EntrepriseForm);

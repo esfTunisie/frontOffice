@@ -274,14 +274,14 @@ class EspaceClient extends React.Component {
         </Row>
         
 
-          <EntrepriseModal
-          onSubmit={console.log("props", this.props.onSubmit)}
+          {this.props.auth && this.props.auth.magasin?<EntrepriseModal
+          onSubmit={this.props.onSubmit}
           modalRef={(n) => (this.modal = n)}
           buttonRef={(n) => (this.closeButton = n)}
           closeModal={this.closeModal}
           onKeyDown={this.onKeyDown}
           onClickOutside={this.onClickOutside}
-        />
+        /> :null}
        
 
         
