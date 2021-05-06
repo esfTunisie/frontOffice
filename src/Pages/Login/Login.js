@@ -23,40 +23,64 @@ import {
 } from "reactstrap";
 
 import Navbar from '../../Components/Navbar/Navabar';
+import { connect } from "react-redux";
+import { apiURL } from "../../Config/config";
 
-export default function Login() {
-  const [squares1to6, setSquares1to6] = React.useState("");
-  const [squares7and8, setSquares7and8] = React.useState("");
-  const [fullNameFocus, setFullNameFocus] = React.useState(false);
-  const [emailFocus, setEmailFocus] = React.useState(false);
-  const [passwordFocus, setPasswordFocus] = React.useState(false);
-  React.useEffect(() => {
-    document.body.classList.toggle("register-page");
-    document.documentElement.addEventListener("mousemove", followCursor);
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      document.body.classList.toggle("register-page");
-      document.documentElement.removeEventListener("mousemove", followCursor);
-    };
-  },[]);
-  const followCursor = (event) => {
-    let posX = event.clientX - window.innerWidth / 2;
-    let posY = event.clientY - window.innerWidth / 6;
-    setSquares1to6(
-      "perspective(500px) rotateY(" +
-        posX * 0.05 +
-        "deg) rotateX(" +
-        posY * -0.05 +
-        "deg)"
-    );
-    setSquares7and8(
-      "perspective(500px) rotateY(" +
-        posX * 0.02 +
-        "deg) rotateX(" +
-        posY * -0.02 +
-        "deg)"
-    );
+
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    username:"",
+    password:"" ,
+    passwordFocus:false,
+    emailFocus:false
+    
+     
   };
+}
+handleSubmit=()=>{
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify({
+      "username": this.state.username,
+      "password": this.state.password
+    }),
+  };
+  
+  fetch(apiURL+"/api/login_check", requestOptions)
+    .then(response => {
+      if(response.status == 200){
+        response.text().then(result =>{
+          const str = JSON.stringify(result).substring(14)
+          const newStr = str.substring(0, str.length - 4)
+          fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+            'Authorization': 'Bearer '+newStr}})
+           .then(response => response.json()).then(data => {
+              const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, client:data}
+              this.props.dispatch(action)
+             window.location= '/'
+             
+           
+           })
+        })
+
+      }
+      else{
+        const action = {type:"GET_TOKEN", token:'', isLogIn:false }
+          this.props.dispatch(action)
+      }
+    })
+    .catch(error => console.log('error', error));
+ 
+}
+
+
+  render(){
   return (
     <>
       <Navbar />
@@ -70,12 +94,12 @@ export default function Login() {
                   <div
                     className="square square-7"
                     id="square7"
-                    style={{ transform: squares7and8 }}
+                    // style={{ transform: squares7and8 }}
                   />
                   <div
                     className="square square-8"
                     id="square8"
-                    style={{ transform: squares7and8 }}
+                    // style={{ transform: squares7and8 }}
                   />
                   <Card className="card-register">
                     <CardHeader>
@@ -89,7 +113,7 @@ export default function Login() {
                       <Form className="form">
                         <InputGroup
                           className={classnames({
-                            "input-group-focus": emailFocus,
+                            "input-group-focus": this.state.emailFocus,
                           })}
                         >
                           <InputGroupAddon addonType="prepend">
@@ -100,13 +124,12 @@ export default function Login() {
                           <Input
                             placeholder="Email"
                             type="text"
-                            onFocus={(e) => setEmailFocus(true)}
-                            onBlur={(e) => setEmailFocus(false)}
+                            onChange={(e)=>this.setState({username: e.target.value})}
                           />
                         </InputGroup>
                         <InputGroup
                           className={classnames({
-                            "input-group-focus": passwordFocus,
+                            "input-group-focus": this.state.passwordFocus,
                           })}
                         >
                           <InputGroupAddon addonType="prepend">
@@ -116,15 +139,14 @@ export default function Login() {
                           </InputGroupAddon>
                           <Input
                             placeholder="Password"
-                            type="text"
-                            onFocus={(e) => setPasswordFocus(true)}
-                            onBlur={(e) => setPasswordFocus(false)}
+                            type="password"
+                            onChange={(e)=>this.setState({password:e.target.value})}
                           />
                         </InputGroup>
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button className="btn-round" color="primary" size="lg">
+                      <Button className="btn-round" color="primary" size="lg" onClick={this.handleSubmit}>
                           Login
                       </Button>
                     </CardFooter>
@@ -135,32 +157,32 @@ export default function Login() {
               <div
                 className="square square-1"
                 id="square1"
-                style={{ transform: squares1to6 }}
+                // style={{ transform: squares1to6 }}
               />
               <div
                 className="square square-2"
                 id="square2"
-                style={{ transform: squares1to6 }}
+                // style={{ transform: squares1to6 }}
               />
               <div
                 className="square square-3"
                 id="square3"
-                style={{ transform: squares1to6 }}
+                // style={{ transform: squares1to6 }}
               />
               <div
                 className="square square-4"
                 id="square4"
-                style={{ transform: squares1to6 }}
+                // style={{ transform: squares1to6 }}
               />
               <div
                 className="square square-5"
                 id="square5"
-                style={{ transform: squares1to6 }}
+                // style={{ transform: squares1to6 }}
               />
               <div
                 className="square square-6"
                 id="square6"
-                style={{ transform: squares1to6 }}
+                // style={{ transform: squares1to6 }}
               />
             </Container>
           </div>
@@ -169,3 +191,19 @@ export default function Login() {
     </>
   );
 }
+}
+
+
+const mapStateToProps = (state, ownProps) => ({
+  auth: state.auth
+})
+
+
+const mapDispatchToProps = (dispatch) => {
+return {
+dispatch: (action) => {
+dispatch(action);
+},
+};
+};
+export default connect (mapStateToProps, mapDispatchToProps)(Login)

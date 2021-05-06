@@ -2,6 +2,7 @@ const initialState = {
     token: null,
     dataOffre:null,
     isLogIn:false,
+    client:null
   };
   
   function AuthReducer(state = initialState, action) {
@@ -12,8 +13,14 @@ const initialState = {
           token: action.token,
           isLogIn: action.isLogIn,
           username: action.username,
-          password: action.password
+          password: action.password,
+          client: action.client
         };
+        case "GET_CLIENT":
+          return {
+            ...state,
+            client: action.value,
+          };
         case "GET_OFFRE_DATA":
           return {
             ...state,
