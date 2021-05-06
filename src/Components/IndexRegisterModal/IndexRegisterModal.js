@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RegisterModal } from '../Modal/RegisterModal';
+import  RegisterModal  from '../Modal/RegisterModal';
 import Button from '../Button/DémarerButton';
 export class IndexRegisterModal extends Component {
   state = { isShown: false };

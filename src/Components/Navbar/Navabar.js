@@ -113,9 +113,9 @@ export default function Navbars() {
                   Getting started
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-with-icons">
-                  <DropdownItem tag={Link} to="/register">
+                  <DropdownItem>
                     <i className="tim-icons icon-bullet-list-67" />
-                    Register
+                    
                   </DropdownItem>
                   <DropdownItem tag={Link} to="/espace-client">
                     <i className="tim-icons icon-single-02" />
