@@ -24089,3 +24089,12 @@ td.rdtYear:hover {
 .blockquote.blockquote-info small {
   color: #1d8cf8;
 }
+.redirect-espace-client-style{
+  margin-top:8px;
+  cursor: pointer;
+}
+.bonjour-style-navbar{
+  color: black;
+    font-size: 15px;
+    margin-right: 10px;
+}

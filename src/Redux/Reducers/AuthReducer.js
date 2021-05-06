@@ -28,7 +28,9 @@ const initialState = {
           };
       case "LOGOUT":
         return {
-          token: null,
+          token: action.token,
+          client: action.client,
+          isLogIn:action.isLogIn
         };
       default:
         return state;
