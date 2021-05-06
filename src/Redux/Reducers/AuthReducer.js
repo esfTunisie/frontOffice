@@ -1,15 +1,24 @@
 const initialState = {
     token: null,
-    test: null
+    dataOffre:null,
+    isLogIn:false,
   };
   
   function AuthReducer(state = initialState, action) {
     switch (action.type) {
-      case "SET_CURRENT_USER":
+      case "GET_TOKEN":
         return {
           ...state,
-          token: action.value.token,
+          token: action.token,
+          isLogIn: action.isLogIn,
+          username: action.username,
+          password: action.password
         };
+        case "GET_OFFRE_DATA":
+          return {
+            ...state,
+            dataOffre: action.value,
+          };
       case "LOGOUT":
         return {
           token: null,

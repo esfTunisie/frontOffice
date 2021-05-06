@@ -6,7 +6,7 @@ import "../../assets/css/nucleo-icons.css";
 
 // reactstrap components
 import {
-  Card,
+ 
   CardHeader,
   CardBody,
   Container,
@@ -20,16 +20,23 @@ import {
   Form,
   FormText,
   Input,
-  Button,
-  Table,
   TabContent,
-  TabPane
+  TabPane,
+  Card,
+   Button, 
+   CardTitle, 
+   CardText 
 } from "reactstrap";
+import EntrepriseModal from "../../Components/Modal/EntrepriseModal";
+import { connect } from "react-redux";
+
+
 
 class EspaceClient extends React.Component {
     state = {
         loading: true,
-        user: null
+        user: null,
+        
       };
       async componentDidMount() {
           //fake API in the URL
@@ -49,7 +56,9 @@ class EspaceClient extends React.Component {
     this.state = {
         id:props.id,
         password:"",
-        withIcons: 1
+        withIcons: 1,
+        isShown: true
+        
     };
   }
   toggleTabs = (e, stateName, index) => {
@@ -63,7 +72,31 @@ class EspaceClient extends React.Component {
     var context = this;
 
   }
+
+
+  
+
+  closeModal = () => {
+    this.setState({ isShown: false });
+    
+    this.toggleScrollLock();
+  };
+  onKeyDown = (event) => {
+    if (event.keyCode === 27) {
+      this.closeModal();
+    }
+  };
+  onClickOutside = (event) => {
+    if (this.modal && this.modal.contains(event.target)) return;
+    this.closeModal();
+  };
+
+  toggleScrollLock = () => {
+    document.querySelector('html').classList.toggle('scroll-lock');
+  };
+
   render() {
+    console.log(this.props.auth.token);
     if (this.state.loading) {
         return <div>loading...</div>;
       }
@@ -75,6 +108,7 @@ class EspaceClient extends React.Component {
       <>
       <Navbar />
         <Container className="align-items-center">
+
         <Row className="top-marg">
         <Col className="ml-auto mr-auto" lg="10" md="6">
             <Card className="card-coin card-plain">
@@ -211,47 +245,64 @@ class EspaceClient extends React.Component {
                             </Row>
                             <Button color="primary" onClick={this.updateNewPassword.bind(this)}>Save Changes</Button>
           </TabPane>
-          <TabPane tabId="withIcons3">
-                            <Table className="tablesorter" responsive>
-                                <thead className="text-primary">
-                                    <tr>
-                                    <th className="text-center">#</th>
-                                    <th >Name</th>
-                                    <th >Categorie</th>
-                                    <th className="text-center">Since</th>
-                                    <th className="text-center">Offre</th>
-                                    <th className="header">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td className="text-center"><img
-                                            alt="..."
-                                            src={this.state.user.picture.large}/>
-                                        </td>
-                                        <td>{this.state.user.name.first}</td>
-                                        <td>{this.state.user.name.last}</td>
-                                        <td className="text-center">{this.state.user.registered.date}</td>
-                                        <td className="text-center"> {this.state.user.phone} DT</td>
-                                        <td className="text-center">
-                                            <Button className="btn-round btn-icon" color="primary">
-                                                <i className="tim-icons icon-double-right" />
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </Table>
-          </TabPane>
+                <TabPane tabId="withIcons3">
+                <Row>
+                <Col sm="5">
+                <div>
+                Stores, programs, and resources
+                Visit or manage the following stores, programs, and resources connected to your Shifti ID.
+                
+                </div>
+                </Col>
+                <Col sm="7">
+                <Card body>
+                  <CardTitle tag="h5">store name</CardTitle>
+                  <CardText><a href={`http://localhost:3006/${this.props.auth.token}`}>
+                  <Button>Go to Store</Button>
+                  </a></CardText>
+                  
+                </Card>
+                </Col>
+                </Row>
+                
+               
+               </TabPane>
         </TabContent>
         </CardBody>
         </Card>
         </Col>
         </Row>
+        
+
+          <EntrepriseModal
+          onSubmit={console.log("props", this.props.onSubmit)}
+          modalRef={(n) => (this.modal = n)}
+          buttonRef={(n) => (this.closeButton = n)}
+          closeModal={this.closeModal}
+          onKeyDown={this.onKeyDown}
+          onClickOutside={this.onClickOutside}
+        />
+       
+
+        
+
         </Container>
       </>
     );
   }
 }
 
-export default EspaceClient;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch: (action) => {
+      dispatch(action);
+    },
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EspaceClient);
