@@ -18,13 +18,11 @@ class Header extends Component {
     };
   }
   
-
-   
-   onSubmit = (event) => {
-     
+   onSubmit = async (event) => {
+    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: event.target.email.value, password: event.target.password1.value}
+    this.props.dispatch(action)
     event.preventDefault(event);
 
-     
       let formdata =new FormData()
       formdata.append('first_name',event.target.name.value)
       formdata.append('last_name',event.target.prenom.value)
@@ -39,31 +37,36 @@ class Header extends Component {
       .then(response => {
         if(response.status == 201)
         {
-          console.log("name",event.target.name.value);
+          this.getTokenUser();
+        }
+    
+      })
+      .catch(error => console.log('error', error)); 
+  };
+
+  getTokenUser=()=>{
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify({
-        "username": event.target.email.value,
-        "password": event.target.password1.value
+        "username": this.props.auth.username,
+        "password": this.props.auth.password
       }),
     };
     
     fetch(apiURL+"/api/login_check", requestOptions)
-  
       .then(response => {
         if(response.status == 200){
-          
           response.text().then(result =>{
-            console.log(result);
             const str = JSON.stringify(result).substring(14)
             const newStr = str.substring(0, str.length - 4)
-            const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:event.target.email.value,password:event.target.password1.value}
-           this.props.dispatch(action)
-
+            const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username}
+            this.props.dispatch(action)
             
+            window.location='/espace-client'
           })
   
         }
@@ -73,14 +76,8 @@ class Header extends Component {
         }
       })
       .catch(error => console.log('error', error));
-          
-      window.location='/espace-client'
-        }
-      })
-      
-
-    
-  };
+   
+  }
 
   
 

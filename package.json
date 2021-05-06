@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
-    "antd": "^4.15.4",
     "bootstrap": "^4.6.0",
     "classnames": "^2.3.1",
     "focus-trap-react": "^8.5.0",
@@ -31,7 +30,7 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=3005 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

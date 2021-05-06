@@ -28,19 +28,24 @@ class Offre extends Component {
     };
   }
 
-  getOffre = async ()=>{
-    await fetch('http://localhost:8000/api/get_offre',{
+  getOffre = ()=>{
+    console.log("test");
+     fetch('http://localhost:8000/api/get_offre',{
       headers:{
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MjAxNjM3NTMsImV4cCI6MTYyMDE2NzM1Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZmFyb3VrYnIwNTBAZ21haWwuY29tIn0.CfN9SRiFQNiv8tRfXJRmNQX6DhVPV3TaeO_sXWPwejrX0GU3wsjeNTvuoH7B96taTnWYdvnM3VHKzzWOF0iHTM1XzMIelhwl73ZqV1uic534SLfpsY7pVb6WKuoXIMH2c7ZDMllEkwAGDcly7TfnYWlR7vXkkr_QOj6mT2BiRydKclcImEoFd_1AdTSy__PeR6FDIGvhb__sOjRj0Z5fhDa8OA0NjfdyE6uaRjIRmSMWgDp1egYObBvyBGDDHav_B9HHUDDza33IiPlNqF5MUCsP2NeQD-2R3INJv2-Fxe2fG9YcEX7VEl51L_JqtCmBlftW2rDC0nXc2oHeOFjPew'
-
+        'Authorization': 'Bearer '+this.props.auth.token
       }
     }).then(response => response.json()).then(data => this.setState({dataOffre:data}))
     const action = {type:"GET_OFFRE_DATA", value:this.state.dataOffre}
     this.props.dispatch(action)
   }
+
+  componentDidMount(){
+    console.log("essai");
+    this.getOffre()
+  }
  
   render() {
-    console.log(this.props.auth.dataOffre);
+   
   return (
     <>
       <div>
@@ -63,7 +68,7 @@ class Offre extends Component {
             </Row>
             <Row>
               <Col md="4">
-              {this.props.auth.dataOffre.map((offre)=>(
+              {this.props.auth && this.props.auth.dataOffre.map((offre)=>(
                 <Card className="card-coin card-plain">
                   <CardHeader>
                     <img
