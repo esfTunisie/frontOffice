@@ -76,6 +76,14 @@ componentDidMount(){
 };
 
 
+logout =()=>{
+  const action = {type:"LOGOUT",
+  token: null,
+  client: null,
+  isLogIn:false}
+  this.props.dispatch(action)
+  window.location='/';
+}
 
 
 scrollToDownload = () => {
@@ -83,7 +91,9 @@ scrollToDownload = () => {
     .getElementById("download-section")
     .scrollIntoView({ behavior: "smooth" });
 };
-
+redirectToEspace=()=>{
+  window.location ='espace-client'
+}
 onSubmit = async (event) => {
   const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: event.target.email.value, password: event.target.password1.value}
   this.props.dispatch(action)
@@ -144,11 +154,8 @@ getTokenUser=()=>{
     .catch(error => console.log('error', error));
  
 }
-
-
 render(){
  
-  
   return (
     <Navbar className={"fixed-top " + this.state.color} color-on-scroll="100" expand="lg">
       <Container>
@@ -206,7 +213,7 @@ render(){
               </DropdownToggle>
               <DropdownMenu className="dropdown-with-icons">
                 <DropdownItem>
-                  <i className="tim-icons icon-bullet-list-67" />
+                  
                   <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />
                 </DropdownItem>
                 <DropdownItem tag={Link} to="/espace-client">
@@ -224,14 +231,21 @@ render(){
               </DropdownMenu>
             </UncontrolledDropdown>
             <NavItem>
-              <Button
+              
+                {this.props.auth && this.props.auth.client?
+                <Row>
+                  <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
+                    <span className="bonjour-style-navbar">Bonjour </span>
+                  {this.props.auth.client.user.firstName+" "+ this.props.auth.client.user.lastName}
+                  </Col>
+                  <Col><Button onClick={this.logout}>Logout</Button></Col>
+                
+                </Row>:<Button
                 className="nav-link d-none d-lg-block"
                 color="primary"
                 target="_blank"
-              >
-                {this.props.auth && this.props.auth.client?
-                <div>{"hello again "+this.props.auth.client.user.firstName+" "+ this.props.auth.client.user.lastName}</div>:<Link to="/login"><i className="tim-icons icon-spaceship" />Login</Link>  }
-              </Button>
+              ><Link to="/login"><i className="tim-icons icon-spaceship" />Login</Link></Button>  }
+              
             </NavItem>
           </Nav>
         </Collapse>
