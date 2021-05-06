@@ -18,6 +18,8 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+import { apiURL } from '../../Config/config';
+import IndexRegisterModal from '../IndexRegisterModal/IndexRegisterModal';
 
 class Navbars extends React.Component {
   constructor(props) {
@@ -29,7 +31,8 @@ class Navbars extends React.Component {
     emailFocus:false,
     collapseOpen:false,
     collapseOut:'',
-    color:'navbar-transparent'
+    color:'navbar-transparent',
+    ButtonText:'Register',
        
   };
 }
@@ -80,8 +83,72 @@ scrollToDownload = () => {
     .getElementById("download-section")
     .scrollIntoView({ behavior: "smooth" });
 };
+
+onSubmit = async (event) => {
+  const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: event.target.email.value, password: event.target.password1.value}
+  this.props.dispatch(action)
+  event.preventDefault(event);
+
+    let formdata =new FormData()
+    formdata.append('first_name',event.target.name.value)
+    formdata.append('last_name',event.target.prenom.value)
+    formdata.append('email',event.target.email.value)
+    formdata.append('password',event.target.password1.value)
+    const requestOptions = {
+      method: 'POST',
+      // headers: myHeaders,
+      body: formdata
+    };
+    fetch(apiURL+'/register',requestOptions)
+    .then(response => {
+      if(response.status == 201)
+      {
+        this.getTokenUser();
+      }
+  
+    })
+    .catch(error => console.log('error', error)); 
+};
+
+getTokenUser=()=>{
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify({
+      "username": this.props.auth.username,
+      "password": this.props.auth.password
+    }),
+  };
+  
+  fetch(apiURL+"/api/login_check", requestOptions)
+    .then(response => {
+      if(response.status == 200){
+        response.text().then(result =>{
+          const str = JSON.stringify(result).substring(14)
+          const newStr = str.substring(0, str.length - 4)
+          const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username}
+          this.props.dispatch(action)
+          
+          window.location='/espace-client'
+        })
+
+      }
+      else{
+        const action = {type:"GET_TOKEN", token:'', isLogIn:false }
+          this.props.dispatch(action)
+      }
+    })
+    .catch(error => console.log('error', error));
+ 
+}
+
+
 render(){
- console.log("username", this.props.auth.client.user.firstName);
+ 
+  
   return (
     <Navbar className={"fixed-top " + this.state.color} color-on-scroll="100" expand="lg">
       <Container>
@@ -138,9 +205,9 @@ render(){
                 Getting started
               </DropdownToggle>
               <DropdownMenu className="dropdown-with-icons">
-                <DropdownItem tag={Link} to="/register">
+                <DropdownItem>
                   <i className="tim-icons icon-bullet-list-67" />
-                  Register
+                  <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />
                 </DropdownItem>
                 <DropdownItem tag={Link} to="/espace-client">
                   <i className="tim-icons icon-single-02" />
