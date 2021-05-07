@@ -36,10 +36,6 @@ class Navbars extends React.Component {
        
   };
 }
-
-
-
-
 componentDidMount(){
   window.addEventListener("scroll", this.changeColor);
   return function cleanup() {
@@ -214,7 +210,7 @@ render(){
               <DropdownMenu className="dropdown-with-icons">
                 <DropdownItem>
                   
-                  <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />
+                 <div> <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} /></div>
                 </DropdownItem>
                 <DropdownItem tag={Link} to="/espace-client">
                   <i className="tim-icons icon-single-02" />
@@ -232,7 +228,7 @@ render(){
             </UncontrolledDropdown>
             <NavItem>
               
-                {this.props.auth && this.props.auth.client?
+                {this.props.auth.client && this.props.auth.client.user ?
                 <Row>
                   <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
                     <span className="bonjour-style-navbar">Bonjour </span>
@@ -240,11 +236,20 @@ render(){
                   </Col>
                   <Col><Button onClick={this.logout}>Logout</Button></Col>
                 
+                </Row>: this.props.auth.client ? <Row>
+                  <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
+                    <span className="bonjour-style-navbar">Bonjour </span>
+                  {this.props.auth.client.firstName+" "+ this.props.auth.client.lastName}
+                  </Col>
+                  <Col><Button onClick={this.logout}>Logout</Button></Col>
+                
                 </Row>:<Button
                 className="nav-link d-none d-lg-block"
                 color="primary"
                 target="_blank"
-              ><Link to="/login"><i className="tim-icons icon-spaceship" />Login</Link></Button>  }
+              ><Link to="/login"><i className="tim-icons icon-spaceship" />Login</Link></Button> }
+
+         
               
             </NavItem>
           </Nav>
