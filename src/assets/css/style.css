@@ -24092,9 +24092,11 @@ td.rdtYear:hover {
 .redirect-espace-client-style{
   margin-top:8px;
   cursor: pointer;
+  width: 250px;
 }
 .bonjour-style-navbar{
   color: black;
     font-size: 15px;
     margin-right: 10px;
+    
 }
