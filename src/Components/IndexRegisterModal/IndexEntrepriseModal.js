@@ -32,6 +32,7 @@ export class IndexEntrepriseModal extends Component {
       <React.Fragment>
 
         
+
           <EntrepriseModal
             onSubmit={this.props.onSubmit}
             modalRef={(n) => (this.modal = n)}
@@ -40,10 +41,25 @@ export class IndexEntrepriseModal extends Component {
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
           />
+        
+          
        
       </React.Fragment>
     );
   }
 }
 
-export default IndexEntrepriseModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch: (action) => {
+      dispatch(action);
+    },
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndexEntrepriseModal);

@@ -14,17 +14,17 @@ class RegisterForm extends Component {
             <form onSubmit={this.props.onSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Nom</label>
-                <input className="form-control" id="name" />
+                <input className="form-control color-input" id="name" />
               </div>
               <div className="form-group">
               <label htmlFor="prenom">Prénom</label>
-              <input className="form-control" id="prenom" />
+              <input className="form-control color-input" id="prenom" />
             </div>
               <div className="form-group">
                 <label htmlFor="email">Email address</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control color-input"
                   id="email"
                   placeholder="name@example.com"
                 />
@@ -33,7 +33,7 @@ class RegisterForm extends Component {
               <label htmlFor="password1">mot de passe</label>
               <input
                 type="password"
-                className="form-control"
+                className="form-control color-input"
                 id="password1"
                 
               />
@@ -42,7 +42,7 @@ class RegisterForm extends Component {
             <label htmlFor="password2">confirmer mot de passe</label>
             <input
               type="password"
-              className="form-control"
+              className="form-control color-input"
               id="password2"
               
             />

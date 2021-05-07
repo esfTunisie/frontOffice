@@ -91,7 +91,7 @@ class EntrepriseForm extends Component {
               </div>
               <div className="form-group">
               <label htmlFor="activite">Secteur d'activité</label>
-              <select  className="form-control" id="activite" onChange={this.handleChangeActivitie.bind(this)}  >
+              <select  className="form-control color-input" id="activite" onChange={this.handleChangeActivitie.bind(this)}  >
                 <option>Industrielle</option>
                 <option>Distribution</option>
                 <option>Services</option>
@@ -100,7 +100,7 @@ class EntrepriseForm extends Component {
             <div className="form-group">
                 <label htmlFor="produit">Produits</label>
                 <input
-                  className="form-control"
+                  className="form-control color-input"
                   id="produit" 
                   onChange={this.handleChangeProduit.bind(this)} 
                 />
@@ -108,7 +108,7 @@ class EntrepriseForm extends Component {
               <div className="form-group">
                 <label htmlFor="affaire">Votre chiffre d’affaires annuel</label>
                 <input
-                  className="form-control"
+                  className="form-control color-input"
                   id="affaire" 
                   onChange={this.handleChangeAffaire.bind(this)} 
                 />
@@ -116,7 +116,7 @@ class EntrepriseForm extends Component {
               <div className="form-group">
               <label htmlFor="rne">RNE</label>
               <input
-                className="form-control"
+                className="form-control color-input"
                 id="rne"
                 onChange={this.handleChangeRne.bind(this)} 
               />
@@ -125,7 +125,7 @@ class EntrepriseForm extends Component {
             <label htmlFor="siteweb">Site web</label>
             <input
             onChange={this.handleChangeSiteweb.bind(this)} 
-              className="form-control"
+              className="form-control color-input"
               id="siteweb"
             />
           </div>
