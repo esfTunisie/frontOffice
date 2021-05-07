@@ -228,22 +228,25 @@ render(){
             </UncontrolledDropdown>
             <NavItem>
               
-                {this.props.auth.client && this.props.auth.client.user ?
-                <Row>
+                {this.props.auth.client && this.props.auth.client.user && !this.props.auth.isLogIn ?(
+
+                  <Row>
                   <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
                     <span className="bonjour-style-navbar">Bonjour </span>
                   {this.props.auth.client.user.firstName+" "+ this.props.auth.client.user.lastName}
                   </Col>
                   <Col><Button onClick={this.logout}>Logout</Button></Col>
                 
-                </Row>: this.props.auth.client ? <Row>
+                </Row>
+                )
+                : this.props.auth.client && !this.props.auth.isLogIn ?  (<Row>
                   <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
                     <span className="bonjour-style-navbar">Bonjour </span>
                   {this.props.auth.client.firstName+" "+ this.props.auth.client.lastName}
                   </Col>
                   <Col><Button onClick={this.logout}>Logout</Button></Col>
                 
-                </Row>:<Button
+                </Row>):<Button
                 className="nav-link d-none d-lg-block"
                 color="primary"
                 target="_blank"

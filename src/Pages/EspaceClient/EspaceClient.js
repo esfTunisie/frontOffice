@@ -96,7 +96,7 @@ class EspaceClient extends React.Component {
   };
 
   render() {
-    console.log(this.props.auth.token);
+    console.log();
     if (this.state.loading) {
         return <div>loading...</div>;
       }
@@ -118,7 +118,14 @@ class EspaceClient extends React.Component {
                             className="img-center img-fluid rounded-circle"
                             src={this.state.user.picture.large}
                             />
-                            <h4 className="title left-marg" >{this.state.user.name.first}  {this.state.user.name.last}</h4>
+                            {this.props.auth.client && this.props.auth.client.user ?(
+                              <h4 className="title left-marg" >{this.props.auth.client.user.firstName} {this.props.auth.client.user.lastName}</h4>
+                            ): this.props.auth.client ? 
+                           (<h4 className="title left-marg" >{this.props.auth.client.firstName} {this.props.auth.client.lastName}</h4>
+                           
+                           ):null                 
+                          }
+                           
                         </CardHeader>
                         <CardBody>
         <Nav
@@ -170,45 +177,44 @@ class EspaceClient extends React.Component {
                                 <Row>
                                     <Col >
                                         <FormGroup>
-                                            <Label >First name</Label>    
-                                            <Input type="text" placeholder="First name" value={this.state.user.name.first} />
+                                            <Label >First name</Label>
+                                            {this.props.auth.client && this.props.auth.client.user ?(
+                                              <Input type="text" placeholder="First name" value={this.props.auth.client.user.firstName} />
+                                            ): this.props.auth.client ? (
+                                              <Input type="text" placeholder="First name" value={this.props.auth.client.firstName} />
+                                            ):null
+                                           }    
+                                           
                                         </FormGroup>
                                     </Col>
                                     <Col >
                                         <FormGroup>
                                             <Label >Seconde Name</Label>
-                                            <Input type="text" placeholder="Last name" value={this.state.user.name.last} />
+                                            {this.props.auth.client && this.props.auth.client.user ?(
+                                            <Input type="text" placeholder="Last name" value={this.props.auth.client.user.lastName} />
+                                            ):this.props.auth.client ?
+                                          (
+                                            <Input type="text" placeholder="Last name" value={this.props.auth.client.lastName} />
+                                          ):null
+                                          }
                                         </FormGroup>
                                     </Col>
                                 </Row> 
                                 <Row>
                                     <Col >
                                         <FormGroup>
-                                            <Label >E mail Adresse</Label>    
-                                            <Input type="text" placeholder="E mail Adresse" value={this.state.user.email} />
+                                            <Label >E mail Adresse</Label>
+                                            {this.props.auth.client && this.props.auth.client.user ?(
+                                            <Input type="text" placeholder="E mail Adresse" value={this.props.auth.client.user.username}/>
+                                            ):this.props.auth.client ? (
+                                              <Input type="text" placeholder="E mail Adresse" value={this.props.auth.client.username}/>
+                                            ):null
+                                          }
                                         </FormGroup>
                                     </Col>
-                                    <Col >
-                                        <FormGroup>
-                                            <Label >Phone Number</Label>
-                                            <Input type="text" placeholder="Phone Number" value={this.state.user.phone}/>
-                                        </FormGroup>
-                                    </Col>
+                                   
                                 </Row> 
-                                <Row>
-                                    <Col >
-                                        <FormGroup>
-                                            <Label >Home Adresse</Label>    
-                                            <Input type="text" placeholder="Home Adresse" value={this.state.user.location.street.name} />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col >
-                                        <FormGroup>
-                                            <Label >Postal Code</Label>
-                                            <Input type="text" placeholder="Postal Code" value={this.state.user.location.street.number}/>
-                                        </FormGroup>
-                                    </Col>
-                                </Row> 
+                               
                             </Form>
                             <Button color="primary">Save Changes</Button>
           </TabPane>
@@ -273,16 +279,16 @@ class EspaceClient extends React.Component {
         </Col>
         </Row>
         
-
-          {/* <EntrepriseModal
+        {this.props.auth.client && !this.props.auth.client.raison_sociale ?
+           (<EntrepriseModal
           onSubmit={this.props.onSubmit}
           modalRef={(n) => (this.modal = n)}
           buttonRef={(n) => (this.closeButton = n)}
           closeModal={this.closeModal}
           onKeyDown={this.onKeyDown}
           onClickOutside={this.onClickOutside}
-        />  */}
-       
+        />)  : null
+        }
 
         
 

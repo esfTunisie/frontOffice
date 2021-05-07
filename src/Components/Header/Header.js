@@ -62,13 +62,18 @@ class Header extends Component {
         if(response.status == 200){
           response.text().then(result =>{
             const str = JSON.stringify(result).substring(14)
-            const newStr = str.substring(0, str.length - 4)
-            const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username}
-            this.props.dispatch(action)
+            const newStr = str.substring(0, str.length - 4) 
+            fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+              'Authorization': 'Bearer '+newStr}})
+             .then(response => response.json()).then(data => {
+                const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, client:data}
+                this.props.dispatch(action)
+              
+          
             
             window.location='/espace-client'
           })
-  
+        })
         }
         else{
           const action = {type:"GET_TOKEN", token:'', isLogIn:false }
