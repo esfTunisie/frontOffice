@@ -73,9 +73,6 @@ class EspaceClient extends React.Component {
 
   }
 
-
-  
-
   closeModal = () => {
     this.setState({ isShown: false });
     

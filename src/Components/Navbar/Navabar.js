@@ -228,7 +228,7 @@ render(){
             </UncontrolledDropdown>
             <NavItem>
               
-                {this.props.auth.client && this.props.auth.client.user && !this.props.auth.isLogIn ?(
+                {this.props.auth.client && this.props.auth.client.user ?(
 
                   <Row>
                   <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
@@ -239,7 +239,7 @@ render(){
                 
                 </Row>
                 )
-                : this.props.auth.client && !this.props.auth.isLogIn ?  (<Row>
+                : this.props.auth.client ?  (<Row>
                   <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
                     <span className="bonjour-style-navbar">Bonjour </span>
                   {this.props.auth.client.firstName+" "+ this.props.auth.client.lastName}

@@ -29,23 +29,23 @@ class Offre extends Component {
   }
 
   getOffre = ()=>{
-    console.log("test");
+    
      fetch('http://localhost:8000/api/get_offre',{
       headers:{
         'Authorization': 'Bearer '+this.props.auth.token
       }
-    }).then(response => response.json()).then(data => this.setState({dataOffre:data}))
-    const action = {type:"GET_OFFRE_DATA", value:this.state.dataOffre}
-    this.props.dispatch(action)
+    }).then(response => response.json()).then(data =>{console.log("datya",data)} )
   }
+    
+
 
   componentDidMount(){
-    console.log("essai");
+    
     this.getOffre()
   }
  
   render() {
-   
+   console.log("state", this.state.dataOffre && this.state.dataOffre);
   return (
     <>
       <div>
@@ -68,7 +68,7 @@ class Offre extends Component {
             </Row>
             <Row>
               <Col md="4">
-              {this.props.auth && this.props.auth.dataOffre.map((offre)=>(
+              {this.state.dataOffre && this.state.dataOffre.map((offre)=>(
                 <Card className="card-coin card-plain">
                   <CardHeader>
                     <img

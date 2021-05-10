@@ -54,7 +54,9 @@ class EntrepriseForm extends Component {
 
         })
     }
-    onSubmit = async()=>{
+    onSubmit = ()=>{
+        console.log("im here");
+        
         let formdata = new FormData()
 
         formdata.append("raison_sociale",this.state.name)
@@ -63,20 +65,19 @@ class EntrepriseForm extends Component {
         formdata.append("site_web",this.state.siteweb)
         formdata.append("chiffre_affaire",this.state.affaire)
         formdata.append("secteur_activite",this.state.activite)
-       await fetch(apiURL+'/api/Add_magasin_front',{headers:{
-            'Authorization': "Bearer "+this.props.auth.token,
-            'Content-Type': 'application/json'
+       
+        fetch(apiURL+'/api/Add_magasin_front',{headers:{
+            'Authorization': "Bearer "+this.props.auth.token
           },
           method:'POST',
           body: formdata
         }).then(response => {
-       
             if(response.status == 201)
             {
-            console.log("res",response);
               response.json().then(result =>{
                 console.log(result);
               })
+              this.props.history.goBack()
             }
             }
           )  
