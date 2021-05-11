@@ -6,18 +6,62 @@ import { Container,Button } from "reactstrap";
 import IndexRegisterModal from "../IndexRegisterModal/IndexRegisterModal";
 import { withRouter } from "react-router-dom";
 import { apiURL } from "../../Config/config";
+
+import MyModal from "../uiKit/myModal";
+
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ButtonText:'Démarer',
-      first_name:"",
-      last_name:'',
-      email:"",
-      password:""
+      isModalVisible:false,
+      inputName:'',
+      inputPrenom:"",
+      inputEmail:"",
+      inputPassworneOne:"",
+      inputPassworneTwo:""
     };
   }
-  
+
+  inputChangedHandlerName(NameFromChild) {
+
+    this.setState({
+      inputName: NameFromChild,
+
+    });
+  }
+
+  inputChangedHandlerPrenom( PrenomFromChild) {
+
+    this.setState({
+      inputPrenom: PrenomFromChild,
+
+    });
+  }
+
+  inputChangedHandlerEmail( EmailFromChild) {
+
+    this.setState({
+      inputEmail: EmailFromChild,
+
+    });
+  }
+  inputChangedHandlerPasswordOne( PasswordOneFromChild) {
+
+    this.setState({
+      inputPassworneOne: PasswordOneFromChild,
+
+    });
+  }
+  inputChangedHandlerPasswordTwo( PasswordtwoFromChild) {
+
+    this.setState({
+      inputPassworneTwo: PasswordtwoFromChild
+
+    });
+  }
+
+
+ 
    onSubmit = async (event) => {
     const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: event.target.email.value, password: event.target.password1.value}
     this.props.dispatch(action)
@@ -84,12 +128,20 @@ class Header extends Component {
    
   }
 
-  
+  handleOk = () => {
+   this.setState({isModalVisible:false})
+  };
 
+   handleCancel = () => {
+    this.setState({isModalVisible:false})
+  };
+   
   render() {
     
       return (
+        
         <div className="page-header header-filter">
+        
         <div className="squares square1" />
         <div className="squares square2" />
         <div className="squares square3" />
@@ -103,7 +155,21 @@ class Header extends Component {
             <h3 className="d-none d-sm-block">
             Démarez votre commerce en ligne avec Shifti
             </h3>
-            <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />
+           {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
+           <Button onClick={()=>this.setState({isModalVisible:true})}>Démarer</Button>
+           <MyModal 
+           isModalVisible={this.state.isModalVisible}
+           handleOk={this.handleOk}
+           handleCancel={this.handleCancel}
+           name={this.inputChangedHandlerName.bind(this)}
+           prenom={this.inputChangedHandlerPrenom.bind(this)}
+           email={this.inputChangedHandlerEmail.bind(this)}
+           password1={this.inputChangedHandlerPasswordOne.bind(this)}
+           password2={this.inputChangedHandlerPasswordTwo.bind(this)}
+           onSubmit={this.onSubmit}
+           />
+
+           
           </div>
         </Container>
       </div>

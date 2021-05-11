@@ -29,6 +29,7 @@ import {
 } from "reactstrap";
 import EntrepriseModal from "../../Components/Modal/EntrepriseModal";
 import { connect } from "react-redux";
+import MyModal from "../../Components/uiKit/myModal";
 
 
 
@@ -36,8 +37,69 @@ class EspaceClient extends React.Component {
     state = {
         loading: true,
         user: null,
+        inputNom:'',
+        inputActivite:"",
+        inputProduit:"",
+        inputAffaire:"",
+        inputRne:"",
+        inputSiteweb:"",
+        isModalVisible:true
         
       };
+
+      inputChangedHandlerNom(NomEntrepriseFromChild) {
+
+        this.setState({
+          inputNom: NomEntrepriseFromChild,
+    
+        });
+      }
+
+      inputChangedHandlerActivite(ActiviteFromChild) {
+
+        this.setState({
+          inputActivite: ActiviteFromChild,
+    
+        });
+      }
+      
+      inputChangedHandlerProduit(ProduitFromChild) {
+
+        this.setState({
+          inputProduit: ProduitFromChild,
+    
+        });
+      }
+      inputChangedHandlerAffaire(AffaireFromChild) {
+
+        this.setState({
+          inputAffaire: AffaireFromChild,
+    
+        });
+      }
+      inputChangedHandlerRne(RneFromChild) {
+
+        this.setState({
+          inputRne: RneFromChild,
+    
+        });
+      }
+      inputChangedHandlerSiteweb(SitewebFromChild) {
+
+        this.setState({
+          inputSiteweb: SitewebFromChild,
+    
+        });
+      }
+
+      handleOk = () => {
+        this.setState({isModalVisible:false})
+       };
+     
+        handleCancel = () => {
+         this.setState({isModalVisible:false})
+       };
+
       async componentDidMount() {
           //fake API in the URL
         const url = "https://api.randomuser.me/";
@@ -73,24 +135,7 @@ class EspaceClient extends React.Component {
 
   }
 
-  closeModal = () => {
-    this.setState({ isShown: false });
-    
-    this.toggleScrollLock();
-  };
-  onKeyDown = (event) => {
-    if (event.keyCode === 27) {
-      this.closeModal();
-    }
-  };
-  onClickOutside = (event) => {
-    if (this.modal && this.modal.contains(event.target)) return;
-    this.closeModal();
-  };
 
-  toggleScrollLock = () => {
-    document.querySelector('html').classList.toggle('scroll-lock');
-  };
 
   render() {
     console.log();
@@ -276,16 +321,20 @@ class EspaceClient extends React.Component {
         </Col>
         </Row>
         
-        {this.props.auth.client && !this.props.auth.client.raison_sociale ?
-           (<EntrepriseModal
-          onSubmit={this.props.onSubmit}
-          modalRef={(n) => (this.modal = n)}
-          buttonRef={(n) => (this.closeButton = n)}
-          closeModal={this.closeModal}
-          onKeyDown={this.onKeyDown}
-          onClickOutside={this.onClickOutside}
-        />)  : null
-        }
+       
+                                        {/*<MyModal 
+            isModalVisible={this.state.isModalVisible}
+            handleOk={this.handleOk}
+            handleCancel={this.handleCancel}
+            nomEnreprise={this.inputChangedHandlerNom.bind(this)}
+            activite={this.inputChangedHandlerActivite.bind(this)}
+            produit={this.inputChangedHandlerProduit.bind(this)}
+            affaire={this.inputChangedHandlerAffaire}
+            rne={this.inputChangedHandlerRne.bind(this)}
+            siteweb={this.inputChangedHandlerSiteweb.bind(this)}
+            
+            />*/ }   
+       
 
         
 

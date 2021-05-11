@@ -20,6 +20,7 @@ const MainRoute = () => {
         <Route exact path="/template" component={Template} />
         <Route exact path="/offre" component={Offre} />
         
+        
       </Switch>
     </Router>
   );

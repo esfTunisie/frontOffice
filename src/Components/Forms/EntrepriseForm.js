@@ -55,8 +55,9 @@ class EntrepriseForm extends Component {
         })
     }
     onSubmit = ()=>{
-        console.log("im here");
-        
+        console.log("im hereeee");
+        const myHeaders = new Headers()
+        myHeaders.append("Authorization", "Bearer "+this.props.auth.token)
         let formdata = new FormData()
 
         formdata.append("raison_sociale",this.state.name)
@@ -65,27 +66,17 @@ class EntrepriseForm extends Component {
         formdata.append("site_web",this.state.siteweb)
         formdata.append("chiffre_affaire",this.state.affaire)
         formdata.append("secteur_activite",this.state.activite)
-       
-        fetch(apiURL+'/api/Add_magasin_front',{headers:{
-            'Authorization': "Bearer "+this.props.auth.token
-          },
-          method:'POST',
+        const requestOptions = {
+          method: 'POST',
+         headers: myHeaders,
           body: formdata
-        }).then(response => {
-            if(response.status == 201)
-            {
-              response.json().then(result =>{
-                console.log(result);
-              })
-              this.props.history.goBack()
-            }
-            }
-          )  
-          
+        };
+        fetch(apiURL+'/api/Add_magasin_front',requestOptions)
+
     }
     render(){
         return (
-            <form >
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Nom de l'entreprise</label>
                 <input className="form-control" id="name" onChange={this.handleChangeName.bind(this)} />
@@ -131,7 +122,7 @@ class EntrepriseForm extends Component {
             />
           </div>
               <div className="form-group">
-                <button className="form-control btn btn-primary" type="submit" onClick={this.onSubmit.bind(this)}>
+                <button className="form-control btn btn-primary" type="submit" >
                   Submit
                 </button>
               </div>
