@@ -14,51 +14,16 @@ class Header extends Component {
     super(props);
     this.state = {
       isModalVisible:false,
-      inputName:'',
-      inputPrenom:"",
-      inputEmail:"",
-      inputPassworneOne:"",
-      inputPassworneTwo:""
+      nomEntreprise:"",
+      activite:"",
+      produit:"",
+      affaire:"",
+      rne:"",
+      siteweb:''
     };
   }
 
-  inputChangedHandlerName(NameFromChild) {
-
-    this.setState({
-      inputName: NameFromChild,
-
-    });
-  }
-
-  inputChangedHandlerPrenom( PrenomFromChild) {
-
-    this.setState({
-      inputPrenom: PrenomFromChild,
-
-    });
-  }
-
-  inputChangedHandlerEmail( EmailFromChild) {
-
-    this.setState({
-      inputEmail: EmailFromChild,
-
-    });
-  }
-  inputChangedHandlerPasswordOne( PasswordOneFromChild) {
-
-    this.setState({
-      inputPassworneOne: PasswordOneFromChild,
-
-    });
-  }
-  inputChangedHandlerPasswordTwo( PasswordtwoFromChild) {
-
-    this.setState({
-      inputPassworneTwo: PasswordtwoFromChild
-
-    });
-  }
+ 
 
 
  
@@ -135,7 +100,46 @@ class Header extends Component {
    handleCancel = () => {
     this.setState({isModalVisible:false})
   };
+
+  onChangeActivite(event) {
+    this.setState({
+      activite: event.target.value
+    });
    
+  }
+
+  onChangeProduit(event) {
+    this.setState({
+      produit: event.target.value
+    });
+  
+  }
+
+  onChangeAffaire(event) {
+    this.setState({
+      affaire: event.target.value
+    });
+ 
+  }
+
+  onChangeRne(event) {
+    this.setState({
+      rne: event.target.value
+    });
+    
+  }
+  onChangeSiteweb(event) {
+    this.setState({
+      siteweb: event.target.value
+    });
+  
+  }
+  onChangeNomEnreprise(event) {
+    this.setState({
+      nomEntreprise: event.target.value
+    });
+   
+  }
   render() {
     
       return (
@@ -161,11 +165,14 @@ class Header extends Component {
            isModalVisible={this.state.isModalVisible}
            handleOk={this.handleOk}
            handleCancel={this.handleCancel}
-           name={this.inputChangedHandlerName.bind(this)}
-           prenom={this.inputChangedHandlerPrenom.bind(this)}
-           email={this.inputChangedHandlerEmail.bind(this)}
-           password1={this.inputChangedHandlerPasswordOne.bind(this)}
-           password2={this.inputChangedHandlerPasswordTwo.bind(this)}
+           onChangeNomEntreprise={this.onChangeNomEnreprise.bind(this)}
+            onChangeActivite={this.onChangeActivite.bind(this)}
+            onChangeProduit={this.onChangeProduit.bind(this)}
+            onChangeAffaire={this.onChangeAffaire.bind(this)}
+            onChangeRne={this.onChangeRne.bind(this)}
+            onChangeSiteweb={this.onChangeSiteweb.bind(this)}
+            nom={"Nom de l'entreprise"}
+            activite={"Secteur d'activité"}
            onSubmit={this.onSubmit}
            />
 

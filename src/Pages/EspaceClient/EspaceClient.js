@@ -51,49 +51,37 @@ class EspaceClient extends React.Component {
         
       };
 
-      inputChangedHandlerNom(NomEntrepriseFromChild) {
-
+      onChangeName(event) {
         this.setState({
-          inputNom: NomEntrepriseFromChild,
-    
+          name: event.target.value
         });
+        
       }
-
-      inputChangedHandlerActivite(ActiviteFromChild) {
-
+     
+      onChangePrenom(event) {
         this.setState({
-          inputActivite: ActiviteFromChild,
-    
+          prenom: event.target.value
         });
+        
       }
+      onChangeEmail(event) {
+        this.setState({
+          email: event.target.value
+        });
+     
+      }
+      onChangePasswordOne(event) {
+        this.setState({
+          password1: event.target.value
+        });
+        
+      }
+    
+      onChangePasswordTwo(event) {
+        this.setState({
+          password2: event.target.value
+        });
       
-      inputChangedHandlerProduit(ProduitFromChild) {
-
-        this.setState({
-          inputProduit: ProduitFromChild,
-    
-        });
-      }
-      inputChangedHandlerAffaire(AffaireFromChild) {
-
-        this.setState({
-          inputAffaire: AffaireFromChild,
-    
-        });
-      }
-      inputChangedHandlerRne(RneFromChild) {
-
-        this.setState({
-          inputRne: RneFromChild,
-    
-        });
-      }
-      inputChangedHandlerSiteweb(SitewebFromChild) {
-
-        this.setState({
-          inputSiteweb: SitewebFromChild,
-    
-        });
       }
 
       handleOk = () => {
@@ -384,13 +372,12 @@ class EspaceClient extends React.Component {
             isModalVisible={this.state.isModalVisible}
             handleOk={this.handleOk}
             handleCancel={this.handleCancel}
-            nomEnreprise={this.inputChangedHandlerNom.bind(this)}
-            activite={this.inputChangedHandlerActivite.bind(this)}
-            produit={this.inputChangedHandlerProduit.bind(this)}
-            affaire={this.inputChangedHandlerAffaire}
-            rne={this.inputChangedHandlerRne.bind(this)}
-            siteweb={this.inputChangedHandlerSiteweb.bind(this)}
-            
+           onChangeName={this.onChangeName.bind(this)}
+           onChangePrenom={this.onChangePrenom.bind(this)}
+            onChangeEmail={this.onChangeEmail.bind(this)}
+            onChangePasswordOne={this.onChangePasswordOne.bind(this)}
+            onChangePasswordTwo={this.onChangePasswordTwo.bind(this)}
+            onSubmit={this.onSubmit}
             /> 
        
 

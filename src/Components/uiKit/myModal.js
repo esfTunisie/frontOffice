@@ -11,195 +11,115 @@ export default class MyModal extends Component {
       email:"",
       password1:"",
       password2:"",
-      nomEntreprise:"",
-      activite:"",
-      produit:"",
-      affaire:"",
-      rne:"",
-      siteweb:''
+
     };
   }
 
-  onChangeName(event) {
-    this.setState({
-      name: event.target.value
-    });
-    this.props.name(event.target.value);
-  }
- onChangeNomEnreprise(event) {
-    this.setState({
-      nomEntreprise: event.target.value
-    });
-    this.props.nomEntreprise(event.target.value);
-  }
-  onChangePrenom(event) {
-    this.setState({
-      prenom: event.target.value
-    });
-    this.props.prenom(event.target.value);
-  }
-  onChangeEmail(event) {
-    this.setState({
-      email: event.target.value
-    });
-    this.props.email(event.target.value);
-  }
-  onChangePasswordOne(event) {
-    this.setState({
-      password1: event.target.value
-    });
-    this.props.password1(event.target.value);
-  }
+  
 
-  onChangePasswordTwo(event) {
-    this.setState({
-      password2: event.target.value
-    });
-    this.props.password2(event.target.value);
-  }
 
-  onChangeActivite(event) {
-    this.setState({
-      activite: event.target.value
-    });
-    this.props.activite(event.target.value);
-  }
-
-  onChangeProduit(event) {
-    this.setState({
-      produit: event.target.value
-    });
-    this.props.produit(event.target.value);
-  }
-
-  onChangeAffaire(event) {
-    this.setState({
-      affaire: event.target.value
-    });
-    this.props.affaire(event.target.value);
-  }
-
-  onChangeRne(event) {
-    this.setState({
-      rne: event.target.value
-    });
-    this.props.rne(event.target.value);
-  }
-  onChangeSiteweb(event) {
-    this.setState({
-      siteweb: event.target.value
-    });
-    this.props.siteweb(event.target.value);
-  }
 
 
     render() {
         return (
         <div>
           <Modal title="Basic Modal" visible={this.props.isModalVisible} onOk={this.props.handleOk} onCancel={this.props.handleCancel}>
-          <form onSubmit={this.props.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Nom</label>
-            <input className="form-control color-input" id="name" value={this.state.naeme} onChange={this.onChangeName.bind(this)} />
+          
+          <div>
+            <label htmlFor="name">{this.props.labelname}</label>
+            <input className="form-control color-input" id="name"  onChange={this.props.onChangeName} />
           </div>
-          <div className="form-group">
-          <label htmlFor="prenom">Prénom</label>
-          <input className="form-control color-input" id="prenom" value={this.state.prenom} onChange={this.onChangePrenom.bind(this)}/>
+          <div >
+          <label htmlFor="prenom">{this.props.labelprenom}</label>
+          <input className="form-control color-input" id="prenom"  onChange={this.props.onChangePrenom}/>
         </div>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
+          <div >
+            <label htmlFor="email">{this.props.email}</label>
             <input
               type="email"
               className="form-control color-input"
               id="email"
               placeholder="name@example.com"
-              value={this.state.email}
-              onChange={this.onChangeEmail.bind(this)}
+          
+              onChange={this.props.onChangeEmail}
             />
           </div>
-          <div className="form-group">
-          <label htmlFor="password1">mot de passe</label>
+          <div >
+          <label htmlFor="password1">{this.props.prassword}</label>
           <input
             type="password"
             className="form-control color-input"
             id="password1"
-              value={this.state.password1}
-              onChange={this.onChangePasswordOne.bind(this)}
+              
+              onChange={this.onChangePasswordOne}
 
           />
         </div>
-        <div className="form-group">
-        <label htmlFor="password2">confirmer mot de passe</label>
+        <div >
+        <label htmlFor="password2">{this.props.confirmpassword}</label>
         <input
           type="password"
           className="form-control color-input"
           id="password2"
-          value={this.state.password2}
-          onChange={this.onChangePasswordTwo.bind(this)}
+ 
+          onChange={this.onChangePasswordTwo}
         />
-      </div>
-          <div className="form-group">
-            <button className="form-control btn btn-primary" type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
 
-        <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Nom de l'entreprise</label>
-          <input className="form-control" id="name" value={this.state.nomEntreprise} onChange={this.onChangeNomEnreprise.bind(this)} />
+     
+
         </div>
-        <div className="form-group">
-        <label htmlFor="activite">Secteur d'activité</label>
-        <select  className="form-control color-input" id="activite" value={this.state.activite} onChange={this.onChangeActivite.bind(this)}  >
+        <div>
+          <label htmlFor="nom">{this.props.nom}</label>
+          <input className="form-control color-input" id="nom" onChange={this.props.onChangeNomEntreprise} />
+        </div>
+        <div >
+        <label htmlFor="activite">{this.props.activite}</label>
+        <select  className="form-control color-input" id="activite"  onChange={this.props.onChangeActivite}  >
           <option>Industrielle</option>
           <option>Distribution</option>
           <option>Services</option>
         </select>
       </div>
-      <div className="form-group">
-          <label htmlFor="produit">Produits</label>
+      <div >
+          <label htmlFor="produit">{this.props.produit}</label>
           <input
             className="form-control color-input"
             id="produit" 
-            value={this.state.produit}
-            onChange={this.onChangeProduit.bind(this)} 
+           
+            onChange={this.props.onChangeProduit} 
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="affaire">Votre chiffre d’affaires annuel</label>
+        <div >
+          <label htmlFor="affaire">{this.props.affaire}</label>
           <input
             className="form-control color-input"
             id="affaire" 
-            value={this.state.affaire}
-            onChange={this.onChangeAffaire.bind(this)} 
+          
+            onChange={this.props.onChangeAffaire} 
           />
         </div>
-        <div className="form-group">
-        <label htmlFor="rne">RNE</label>
+        <div >
+        <label htmlFor="rne">{this.props.rne}</label>
         <input
           className="form-control color-input"
           id="rne"
-          value={this.state.rne}
-          onChange={this.onChangeRne.bind(this)} 
+          onChange={this.onChangeRne} 
         />
       </div>
-      <div className="form-group">
-      <label htmlFor="siteweb">Site web</label>
+      <div >
+      <label htmlFor="siteweb">{this.props.siteweb}</label>
       <input
-      onChange={this.onChangeSiteweb.bind(this)} 
+      onChange={this.onChangeSiteweb} 
         className="form-control color-input"
         id="siteweb"
-        value={this.state.siteweb}
+   
       />
     </div>
-        <div className="form-group">
-          <button className="form-control btn btn-primary" type="submit" >
+        <div >
+          <button className="form-control btn btn-primary" type="submit" onClick={this.props.onSubmit} >
             Submit
           </button>
         </div>
-      </form>
           </Modal>
             </div>
         )
