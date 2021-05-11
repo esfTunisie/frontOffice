@@ -54,26 +54,7 @@ class EntrepriseForm extends Component {
 
         })
     }
-    onSubmit = ()=>{
-        console.log("im hereeee");
-        const myHeaders = new Headers()
-        myHeaders.append("Authorization", "Bearer "+this.props.auth.token)
-        let formdata = new FormData()
 
-        formdata.append("raison_sociale",this.state.name)
-        formdata.append("cat_produits",this.state.produit)
-        formdata.append("rne",this.state.rne)
-        formdata.append("site_web",this.state.siteweb)
-        formdata.append("chiffre_affaire",this.state.affaire)
-        formdata.append("secteur_activite",this.state.activite)
-        const requestOptions = {
-          method: 'POST',
-         headers: myHeaders,
-          body: formdata
-        };
-        fetch(apiURL+'/api/Add_magasin_front',requestOptions)
-
-    }
     render(){
         return (
             <form onSubmit={this.onSubmit}>

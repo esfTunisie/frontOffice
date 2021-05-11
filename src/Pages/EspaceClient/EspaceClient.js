@@ -30,6 +30,7 @@ import {
 import EntrepriseModal from "../../Components/Modal/EntrepriseModal";
 import { connect } from "react-redux";
 import MyModal from "../../Components/uiKit/myModal";
+import { apiURL } from "../../Config/config";
 
 
 
@@ -43,7 +44,10 @@ class EspaceClient extends React.Component {
         inputAffaire:"",
         inputRne:"",
         inputSiteweb:"",
-        isModalVisible:true
+        isModalVisible:true,
+        first_name:'',
+        last_name:'',
+        username:""
         
       };
 
@@ -134,7 +138,61 @@ class EspaceClient extends React.Component {
     var context = this;
 
   }
+  SaveChanges=()=>{
+    let formdata = new FormData()
 
+    formdata.append("first_name",this.state.first_name)
+    formdata.append("first_name",this.state.last_name)
+    formdata.append("username",this.state.username)
+   
+
+    fetch(apiURL+'/api/Add_magasin_front',{headers:{
+      'Authorization': "Bearer "+this.props.auth.token
+    },
+    method:'POST',
+    body: formdata
+  }).then(response => {
+      if(response.status == 201)
+      {
+        response.json().then(result =>{
+          console.log(result);
+        })
+        this.props.history.goBack()
+      }
+      }
+    )  
+
+  }
+  onSubmit = ()=>{
+    console.log("im here");
+    
+    let formdata = new FormData()
+
+    formdata.append("raison_sociale",this.state.name)
+    formdata.append("cat_produits",this.state.produit)
+    formdata.append("rne",this.state.rne)
+    formdata.append("site_web",this.state.siteweb)
+    formdata.append("chiffre_affaire",this.state.affaire)
+    formdata.append("secteur_activite",this.state.activite)
+   
+    fetch(apiURL+'/api/Add_magasin_front',{headers:{
+        'Authorization': "Bearer "+this.props.auth.token
+      },
+      method:'POST',
+      body: formdata
+    }).then(response => {
+        if(response.status == 201)
+        {
+          response.json().then(result =>{
+            console.log(result);
+          })
+          this.props.history.goBack()
+        }
+        }
+      )  
+      
+}
+  
 
 
   render() {
@@ -221,9 +279,9 @@ class EspaceClient extends React.Component {
                                         <FormGroup>
                                             <Label >First name</Label>
                                             {this.props.auth.client && this.props.auth.client.user ?(
-                                              <Input type="text" placeholder="First name" value={this.props.auth.client.user.firstName} />
+                                              <Input type="text" placeholder="First name"  onChange={(e)=>this.setState({first_name:e.target.value})} />
                                             ): this.props.auth.client ? (
-                                              <Input type="text" placeholder="First name" value={this.props.auth.client.firstName} />
+                                              <Input type="text" placeholder="First name"  onChange={(e)=>this.setState({first_name:e.target.value})}/>
                                             ):null
                                            }    
                                            
@@ -233,10 +291,10 @@ class EspaceClient extends React.Component {
                                         <FormGroup>
                                             <Label >Seconde Name</Label>
                                             {this.props.auth.client && this.props.auth.client.user ?(
-                                            <Input type="text" placeholder="Last name" value={this.props.auth.client.user.lastName} />
+                                            <Input type="text" placeholder="Last name"  onChange={(e)=>this.setState({last_name:e.target.value})}/>
                                             ):this.props.auth.client ?
                                           (
-                                            <Input type="text" placeholder="Last name" value={this.props.auth.client.lastName} />
+                                            <Input type="text" placeholder="Last name"  onChange={(e)=>this.setState({last_name:e.target.value})} />
                                           ):null
                                           }
                                         </FormGroup>
@@ -247,9 +305,9 @@ class EspaceClient extends React.Component {
                                         <FormGroup>
                                             <Label >E mail Adresse</Label>
                                             {this.props.auth.client && this.props.auth.client.user ?(
-                                            <Input type="text" placeholder="E mail Adresse" value={this.props.auth.client.user.username}/>
+                                            <Input type="text" placeholder="E mail Adresse"  onChange={(e)=>this.setState({username:e.target.value})}/>
                                             ):this.props.auth.client ? (
-                                              <Input type="text" placeholder="E mail Adresse" value={this.props.auth.client.username}/>
+                                              <Input type="text" placeholder="E mail Adresse"  onChange={(e)=>this.setState({username:e.target.value})}/>
                                             ):null
                                           }
                                         </FormGroup>
@@ -258,7 +316,7 @@ class EspaceClient extends React.Component {
                                 </Row> 
                                
                             </Form>
-                            <Button color="primary">Save Changes</Button>
+                            <Button color="primary" onClick={this.SaveChanges.bind(this)}>Save Changes</Button>
           </TabPane>
           <TabPane tabId="withIcons2">
           <Row>
@@ -322,7 +380,7 @@ class EspaceClient extends React.Component {
         </Row>
         
        
-                                        {/*<MyModal 
+            <MyModal 
             isModalVisible={this.state.isModalVisible}
             handleOk={this.handleOk}
             handleCancel={this.handleCancel}
@@ -333,7 +391,7 @@ class EspaceClient extends React.Component {
             rne={this.inputChangedHandlerRne.bind(this)}
             siteweb={this.inputChangedHandlerSiteweb.bind(this)}
             
-            />*/ }   
+            /> 
        
 
         
