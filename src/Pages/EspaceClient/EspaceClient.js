@@ -47,7 +47,7 @@ class EspaceClient extends React.Component {
         isModalVisible:true,
         first_name:'',
         last_name:'',
-        username:""
+        email:""
         
       };
 
@@ -142,11 +142,11 @@ class EspaceClient extends React.Component {
     let formdata = new FormData()
 
     formdata.append("first_name",this.state.first_name)
-    formdata.append("first_name",this.state.last_name)
-    formdata.append("username",this.state.username)
+    formdata.append("last_name",this.state.last_name)
+    formdata.append("email",this.state.email)
    
 
-    fetch(apiURL+'/api/Add_magasin_front',{headers:{
+    fetch(apiURL+'/api/user_update_profile',{headers:{
       'Authorization': "Bearer "+this.props.auth.token
     },
     method:'POST',
