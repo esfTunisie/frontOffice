@@ -75,7 +75,7 @@ componentDidMount(){
 logout =()=>{
   const action = {type:"LOGOUT",
   token: null,
-  client: null,
+  user: null,
   isLogIn:false}
   this.props.dispatch(action)
   window.location='/';

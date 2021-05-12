@@ -14,7 +14,8 @@ const initialState = {
           isLogIn: action.isLogIn,
           username: action.username,
           password: action.password,
-          client: action.client
+          client: action.client,
+          user:action.user
         };
         case "GET_CLIENT":
           return {
@@ -30,6 +31,7 @@ const initialState = {
         return {
           token: action.token,
           client: action.client,
+          user:action.user,
           isLogIn:action.isLogIn
         };
       default:

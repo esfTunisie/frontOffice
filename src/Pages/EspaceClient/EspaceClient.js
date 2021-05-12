@@ -38,50 +38,26 @@ class EspaceClient extends React.Component {
     state = {
         loading: true,
         user: null,
-        inputNom:'',
-        inputActivite:"",
-        inputProduit:"",
-        inputAffaire:"",
-        inputRne:"",
-        inputSiteweb:"",
-        isModalVisible:true,
-        first_name:'',
-        last_name:'',
-        email:""
+  
+        
+ 
         
       };
 
-      onChangeName(event) {
-        this.setState({
-          name: event.target.value
-        });
-        
-      }
-     
-      onChangePrenom(event) {
-        this.setState({
-          prenom: event.target.value
-        });
-        
-      }
-      onChangeEmail(event) {
-        this.setState({
-          email: event.target.value
-        });
-     
-      }
-      onChangePasswordOne(event) {
-        this.setState({
-          password1: event.target.value
-        });
-        
-      }
-    
-      onChangePasswordTwo(event) {
-        this.setState({
-          password2: event.target.value
-        });
-      
+      constructor(props) {
+        super(props);
+        this.state = {
+            id:props.id,
+            password:"",
+            withIcons: 1,
+            isModalVisible:true,
+            nomEntreprise:"",
+            activite:"",
+            produit:"",
+            affaire:null,
+            rne:null,
+            siteweb:'',
+        };
       }
 
       handleOk = () => {
@@ -105,16 +81,7 @@ class EspaceClient extends React.Component {
           password: event.target.value 
         });
       }
-    constructor(props) {
-    super(props);
-    this.state = {
-        id:props.id,
-        password:"",
-        withIcons: 1,
-        isShown: true
-        
-    };
-  }
+ 
   toggleTabs = (e, stateName, index) => {
     e.preventDefault();
     this.setState({
@@ -156,29 +123,71 @@ class EspaceClient extends React.Component {
     
     let formdata = new FormData()
 
-    formdata.append("raison_sociale",this.state.name)
+    formdata.append("raison_sociale",this.state.nomEntreprise)
     formdata.append("cat_produits",this.state.produit)
     formdata.append("rne",this.state.rne)
     formdata.append("site_web",this.state.siteweb)
     formdata.append("chiffre_affaire",this.state.affaire)
     formdata.append("secteur_activite",this.state.activite)
-   
+  
     fetch(apiURL+'/api/Add_magasin_front',{headers:{
         'Authorization': "Bearer "+this.props.auth.token
       },
       method:'POST',
       body: formdata
-    }).then(response => {
-        if(response.status == 201)
-        {
-          response.json().then(result =>{
-            console.log(result);
-          })
-          this.props.history.goBack()
-        }
-        }
-      )  
+    }).then(response => response.json())
+    fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+      'Authorization': 'Bearer '+this.props.auth.token}})
+     .then(response => response.json()).then(data => {
+      const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
+      this.props.dispatch(action)
+       this.props.history.goBack()  
+
+     })
       
+          
+        
+        
+       
+      
+}
+
+onChangeActivite(e) {
+  this.setState({
+    activite: e
+  });
+ 
+}
+
+onChangeProduit(e) {
+  this.setState({
+    produit: e
+  });
+
+}
+
+onChangeAffaire(e) {
+  this.setState({
+    affaire: e
+  });
+
+}
+
+onChangeRne(e) {
+  this.setState({
+    rne: e
+  });
+  
+}
+onChangeSiteweb(e) {
+  this.setState({
+    siteweb: e
+  });
+
+}
+onChangeNomEnreprise(e) {
+  this.setState({nomEntreprise:e})
+ 
 }
   
 
@@ -367,18 +376,30 @@ class EspaceClient extends React.Component {
         </Col>
         </Row>
         
-       
-            <MyModal 
-            isModalVisible={this.state.isModalVisible}
-            handleOk={this.handleOk}
-            handleCancel={this.handleCancel}
-           onChangeName={this.onChangeName.bind(this)}
-           onChangePrenom={this.onChangePrenom.bind(this)}
-            onChangeEmail={this.onChangeEmail.bind(this)}
-            onChangePasswordOne={this.onChangePasswordOne.bind(this)}
-            onChangePasswordTwo={this.onChangePasswordTwo.bind(this)}
-            onSubmit={this.onSubmit}
-            /> 
+       { !this.props.auth.client ?(
+        <MyModal 
+        entreprise={"entreprise"}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+        isModalVisible= {this.state.isModalVisible}
+        onChangeNomEntreprise={(e)=>this.onChangeNomEnreprise(e.target.value)}
+         onChangeActivite={(e)=>this.onChangeActivite(e.target.value)}
+         onChangeProduit={(e)=>this.onChangeProduit(e.target.value)}
+         onChangeAffaire={(e)=>this.onChangeAffaire(e.target.value)}
+         onChangeRne={(e)=>this.onChangeRne(e.target.value)}
+         onChangeSiteweb={(e)=>this.onChangeSiteweb(e.target.value)}
+         nom={"Nom de l'entreprise :"}
+         activite={"Secteur d'activité :"}
+         affaire={"Chiffre d'affaire annuel :"}
+         rne={"Rne"}
+         siteweb={"site web"}
+         produit={"produits"}
+        onSubmit={this.onSubmit}
+        />
+       ):null
+
+       }
+      
        
 
         

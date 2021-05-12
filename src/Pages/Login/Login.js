@@ -39,7 +39,7 @@ class Login extends React.Component {
      
   };
 }
-handleSubmit=()=>{
+handleSubmit=async()=>{
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -52,7 +52,7 @@ handleSubmit=()=>{
     }),
   };
   
-  fetch(apiURL+"/api/login_check", requestOptions)
+  await fetch(apiURL+"/api/login_check", requestOptions)
     .then(response => {
       if(response.status == 200){
         response.text().then(result =>{

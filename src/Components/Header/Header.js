@@ -14,12 +14,14 @@ class Header extends Component {
     super(props);
     this.state = {
       isModalVisible:false,
-      nomEntreprise:"",
-      activite:"",
-      produit:"",
-      affaire:"",
-      rne:"",
-      siteweb:''
+      
+
+      name:"",
+      prenom:"",
+      email:"",
+      password1:"",
+      password2:"",
+      username:""
     };
   }
 
@@ -27,21 +29,23 @@ class Header extends Component {
 
 
  
-   onSubmit = async (event) => {
-    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: event.target.email.value, password: event.target.password1.value}
+   onSubmit = async () => {
+
+    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: this.state.email, password: this.state.password1}
     this.props.dispatch(action)
-    event.preventDefault(event);
+    
 
       let formdata =new FormData()
-      formdata.append('first_name',event.target.name.value)
-      formdata.append('last_name',event.target.prenom.value)
-      formdata.append('email',event.target.email.value)
-      formdata.append('password',event.target.password1.value)
+      formdata.append('first_name',this.state.name)
+      formdata.append('last_name',this.state.prenom)
+      formdata.append('email',this.state.email)
+      formdata.append('password',this.state.password1)
       const requestOptions = {
         method: 'POST',
         // headers: myHeaders,
         body: formdata
       };
+      
       fetch(apiURL+'/register',requestOptions)
       .then(response => {
         if(response.status == 201)
@@ -72,10 +76,11 @@ class Header extends Component {
           response.text().then(result =>{
             const str = JSON.stringify(result).substring(14)
             const newStr = str.substring(0, str.length - 4) 
+            console.log("hello",newStr);
             fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
               'Authorization': 'Bearer '+newStr}})
              .then(response => response.json()).then(data => {
-                const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, client:data}
+                const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, user:data}
                 this.props.dispatch(action)
               
           
@@ -93,52 +98,47 @@ class Header extends Component {
    
   }
 
-  handleOk = () => {
-   this.setState({isModalVisible:false})
-  };
-
-   handleCancel = () => {
+   handleOk = () => {
     this.setState({isModalVisible:false})
-  };
+   };
 
-  onChangeActivite(event) {
-    this.setState({
-      activite: event.target.value
-    });
-   
-  }
-
-  onChangeProduit(event) {
-    this.setState({
-      produit: event.target.value
-    });
-  
-  }
-
-  onChangeAffaire(event) {
-    this.setState({
-      affaire: event.target.value
-    });
+    handleCancel = () => {
+    this.setState({isModalVisible:false})
+   };
+  onChangeName(e) {
+     this.setState({
+       name: e
+     });
+    
+   }
  
-  }
-
-  onChangeRne(event) {
-    this.setState({
-      rne: event.target.value
-    });
+   onChangePrenom(e) {
+     this.setState({
+      prenom: e
+     });
     
   }
-  onChangeSiteweb(event) {
-    this.setState({
-      siteweb: event.target.value
+   onChangeEmail(e) {
+     this.setState({
+       email: e
     });
+ 
+   }
+   onChangePasswordOne=(e)=> {
+      this.setState({password1:e})
+    
+    }
+
+    onChangePasswordTwo(e) {
+     this.setState({
+      password2: e
+  });
   
-  }
-  onChangeNomEnreprise(event) {
-    this.setState({
-      nomEntreprise: event.target.value
-    });
-   
+    }
+
+  
+  showModal=()=>{
+    this.setState({isModalVisible:true})
   }
   render() {
     
@@ -160,22 +160,25 @@ class Header extends Component {
             Démarez votre commerce en ligne avec Shifti
             </h3>
            {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
-           <Button onClick={()=>this.setState({isModalVisible:true})}>Démarer</Button>
-           <MyModal 
-           isModalVisible={this.state.isModalVisible}
-           handleOk={this.handleOk}
-           handleCancel={this.handleCancel}
-           onChangeNomEntreprise={this.onChangeNomEnreprise.bind(this)}
-            onChangeActivite={this.onChangeActivite.bind(this)}
-            onChangeProduit={this.onChangeProduit.bind(this)}
-            onChangeAffaire={this.onChangeAffaire.bind(this)}
-            onChangeRne={this.onChangeRne.bind(this)}
-            onChangeSiteweb={this.onChangeSiteweb.bind(this)}
-            nom={"Nom de l'entreprise"}
-            activite={"Secteur d'activité"}
-           onSubmit={this.onSubmit}
-           />
-
+           <Button onClick={this.showModal}>Démarer</Button>
+          
+            <MyModal 
+            isModalVisible= {this.state.isModalVisible}
+            onOk={this.handleOk}
+            onCancel={this.handleCancel}
+            register={"register"}
+            labelname={"Nom"}
+            labelprenom={"Prénom"}
+            email={"Adresse Email"}
+            password={"Mot de passe"}
+            confirmpassword={"Confirmer mot de passe"}
+            onChangeName={(e)=>this.setState({name:e.target.value})}
+            onChangePrenom={(e)=>this.setState({prenom:e.target.value})}
+            onChangeEmail={(e)=>this.setState({email:e.target.value})}
+            onChangePasswordOne={(e)=>this.onChangePasswordOne(e.target.value)}
+            onChangePasswordTwo={(e)=>this.setState({password2:e.target.value})}
+            onSubmit={this.onSubmit}
+            />
            
           </div>
         </Container>
