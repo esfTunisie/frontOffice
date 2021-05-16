@@ -246,6 +246,15 @@ render(){
                   </Col>
                   <Col><Button onClick={this.logout}>Logout</Button></Col>
                 
+                </Row>
+                )
+                : this.props.auth.user ?  (<Row>
+                  <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
+                    <span className="bonjour-style-navbar">Bonjour </span>
+                  {this.props.auth.user.firstName+" "+ this.props.auth.user.lastName}
+                  </Col>
+                  <Col><Button onClick={this.logout}>Logout</Button></Col>
+                
                 </Row>):<Button
                 className="nav-link d-none d-lg-block"
                 color="primary"

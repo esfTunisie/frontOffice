@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router";
 
 import { Container,Button } from "reactstrap";
-import IndexRegisterModal from "../IndexRegisterModal/IndexRegisterModal";
-import { withRouter } from "react-router-dom";
 import { apiURL } from "../../Config/config";
-
+import isEmpty from 'validator/lib/isEmpty';
+import isEmail from 'validator/lib/isEmail';
 import MyModal from "../uiKit/myModal";
 
 class Header extends Component {
@@ -15,31 +13,133 @@ class Header extends Component {
     this.state = {
       isModalVisible:false,
       
+      registerFormData:
+      {name:'',prenom:"",email:'',password1:'',password2:'',
+      validation:
+      {
+        error:
+        [true,true,true,true],
+        errorMsg:
+        ['merci de remplir votre nom',
+        'merci de remplir votre prénom',
+        'merci de remplir votre email',
+        'merci de remplir votre mot de passe',
+        'merci de confirmer votre mot de passe'
 
-      name:"",
+      ]}},
+      registerFormError:[false,false,false,false,false],
+      registerFormErrorMsg:['','','',''],
+      passwordValue:""
+      /*name:"",
       prenom:"",
       email:"",
       password1:"",
       password2:"",
-      username:""
+      username:"",*/
+      
     };
   }
 
- 
+ onChangeRegisterForm=(value,key,index)=>{
+  console.log("hello from register");
+  let aux = {...this.state.registerFormData}
+  aux[key]=value
+  if(key==='name'){
+    if(value.trim()===''){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre nom'
+    }else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+  if(key==='prenom'){
+    if(value.trim()===''){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre prenom'
+    }else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+
+  if(key=="email"){
+        
+    if(isEmpty(value)){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre Email'
+    } if(!isEmail(value)){
+      
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre email correctement'
+    }
+    
+    
+    else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+  if(key==='password1'){
+    if(value.trim()===''){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre password'
+    }
+    else if (value.length < 8)
+        {
+          aux.validation.error[index]=true
+          aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
+        }
+        else{
+          this.setState({passwordValue:value})
+          aux.validation.error[index]=false
+          aux.validation.errorMsg[index]=''
+       
+        }
+  } 
+  if(key=="password2"){
+        
+        
+    if(isEmpty(value)){
+      
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de confirmer votre mot de passe'
+    }else if (value.length < 8)
+    {
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
+    }else if(value !== this.state.passwordValue){
+     
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='password not match'
+    }
+    
+    else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+  this.setState({registerFormData:aux})
+ }
 
 
  
    onSubmit = async () => {
 
-    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: this.state.email, password: this.state.password1}
+    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: this.state.registerFormData.email, password: this.state.registerFormData.password1}
     this.props.dispatch(action)
-    
-
+    const ERROR = [...this.state.registerFormData.validation.error]
+    const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
+    this.setState({
+      registerFormError:ERROR,
+      registerFormErrorMsg:ERROR_MSG
+    })
+    if(!this.state.registerFormData.validation.error.includes(true)){
       let formdata =new FormData()
-      formdata.append('first_name',this.state.name)
-      formdata.append('last_name',this.state.prenom)
-      formdata.append('email',this.state.email)
-      formdata.append('password',this.state.password1)
+      formdata.append('first_name',this.state.registerFormData.name)
+      formdata.append('last_name',this.state.registerFormData.prenom)
+      formdata.append('email',this.state.registerFormData.email)
+      formdata.append('password',this.state.registerFormData.password1)
       const requestOptions = {
         method: 'POST',
         // headers: myHeaders,
@@ -55,8 +155,11 @@ class Header extends Component {
     
       })
       .catch(error => console.log('error', error)); 
-  };
+      
 
+    
+  }
+   }
   getTokenUser=()=>{
 
     const myHeaders = new Headers();
@@ -80,6 +183,7 @@ class Header extends Component {
             fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
               'Authorization': 'Bearer '+newStr}})
              .then(response => response.json()).then(data => {
+               console.log('data',data);
                 const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, user:data}
                 this.props.dispatch(action)
               
@@ -105,7 +209,7 @@ class Header extends Component {
     handleCancel = () => {
     this.setState({isModalVisible:false})
    };
-  onChangeName(e) {
+  /*onChangeName(e) {
      this.setState({
        name: e
      });
@@ -134,7 +238,7 @@ class Header extends Component {
       password2: e
   });
   
-    }
+    }*/
 
   
   showModal=()=>{
@@ -161,7 +265,7 @@ class Header extends Component {
             </h3>
            {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
            <Button onClick={this.showModal}>Démarer</Button>
-          
+
             <MyModal 
             isModalVisible= {this.state.isModalVisible}
             onOk={this.handleOk}
@@ -172,11 +276,10 @@ class Header extends Component {
             email={"Adresse Email"}
             password={"Mot de passe"}
             confirmpassword={"Confirmer mot de passe"}
-            onChangeName={(e)=>this.setState({name:e.target.value})}
-            onChangePrenom={(e)=>this.setState({prenom:e.target.value})}
-            onChangeEmail={(e)=>this.setState({email:e.target.value})}
-            onChangePasswordOne={(e)=>this.onChangePasswordOne(e.target.value)}
-            onChangePasswordTwo={(e)=>this.setState({password2:e.target.value})}
+            onChangeRegisterForm={this.onChangeRegisterForm}  
+           registerFormError={this.state.registerFormError}
+           registerFormErrorMsg={this.state.registerFormErrorMsg}
+           registerFormData={this.state.registerFormData}
             onSubmit={this.onSubmit}
             />
            

@@ -61,6 +61,7 @@ handleSubmit=async()=>{
           fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
             'Authorization': 'Bearer '+newStr}})
            .then(response => response.json()).then(data => {
+             console.log("data",data);
               const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, client:data}
               this.props.dispatch(action)
              window.location= '/'
