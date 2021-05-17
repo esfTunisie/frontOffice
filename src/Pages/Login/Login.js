@@ -39,7 +39,7 @@ class Login extends React.Component {
      
   };
 }
-handleSubmit=()=>{
+handleSubmit=async()=>{
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -52,7 +52,7 @@ handleSubmit=()=>{
     }),
   };
   
-  fetch(apiURL+"/api/login_check", requestOptions)
+  await fetch(apiURL+"/api/login_check", requestOptions)
     .then(response => {
       if(response.status == 200){
         response.text().then(result =>{
@@ -61,6 +61,7 @@ handleSubmit=()=>{
           fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
             'Authorization': 'Bearer '+newStr}})
            .then(response => response.json()).then(data => {
+             console.log("data",data);
               const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, client:data}
               this.props.dispatch(action)
              window.location= '/'

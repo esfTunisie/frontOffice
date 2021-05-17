@@ -54,38 +54,10 @@ class EntrepriseForm extends Component {
 
         })
     }
-    onSubmit = ()=>{
-        console.log("im here");
-        
-        let formdata = new FormData()
 
-        formdata.append("raison_sociale",this.state.name)
-        formdata.append("cat_produits",this.state.produit)
-        formdata.append("rne",this.state.rne)
-        formdata.append("site_web",this.state.siteweb)
-        formdata.append("chiffre_affaire",this.state.affaire)
-        formdata.append("secteur_activite",this.state.activite)
-       
-        fetch(apiURL+'/api/Add_magasin_front',{headers:{
-            'Authorization': "Bearer "+this.props.auth.token
-          },
-          method:'POST',
-          body: formdata
-        }).then(response => {
-            if(response.status == 201)
-            {
-              response.json().then(result =>{
-                console.log(result);
-              })
-              this.props.history.goBack()
-            }
-            }
-          )  
-          
-    }
     render(){
         return (
-            <form >
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Nom de l'entreprise</label>
                 <input className="form-control" id="name" onChange={this.handleChangeName.bind(this)} />
@@ -131,7 +103,7 @@ class EntrepriseForm extends Component {
             />
           </div>
               <div className="form-group">
-                <button className="form-control btn btn-primary" type="submit" onClick={this.onSubmit.bind(this)}>
+                <button className="form-control btn btn-primary" type="submit" >
                   Submit
                 </button>
               </div>

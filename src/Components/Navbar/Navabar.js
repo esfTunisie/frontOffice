@@ -75,7 +75,7 @@ componentDidMount(){
 logout =()=>{
   const action = {type:"LOGOUT",
   token: null,
-  client: null,
+  user: null,
   isLogIn:false}
   this.props.dispatch(action)
   window.location='/';
@@ -243,6 +243,15 @@ render(){
                   <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
                     <span className="bonjour-style-navbar">Bonjour </span>
                   {this.props.auth.client.firstName+" "+ this.props.auth.client.lastName}
+                  </Col>
+                  <Col><Button onClick={this.logout}>Logout</Button></Col>
+                
+                </Row>
+                )
+                : this.props.auth.user ?  (<Row>
+                  <Col className="redirect-espace-client-style" onClick={this.redirectToEspace}>
+                    <span className="bonjour-style-navbar">Bonjour </span>
+                  {this.props.auth.user.firstName+" "+ this.props.auth.user.lastName}
                   </Col>
                   <Col><Button onClick={this.logout}>Logout</Button></Col>
                 

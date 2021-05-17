@@ -29,6 +29,8 @@ import {
 } from "reactstrap";
 import EntrepriseModal from "../../Components/Modal/EntrepriseModal";
 import { connect } from "react-redux";
+import MyModal from "../../Components/uiKit/myModal";
+import { apiURL } from "../../Config/config";
 
 
 
@@ -36,14 +38,104 @@ class EspaceClient extends React.Component {
     state = {
         loading: true,
         user: null,
+       
+        
+ 
         
       };
+
+      constructor(props) {
+        super(props);
+        this.state = {
+            id:props.id,
+            password:"",
+            withIcons: 1,
+            isModalVisible:true,
+            first_name:"",
+            last_name:"",
+            entrepriseFormData:
+            {raison_sociale:'',activite:"",produit:'',affaire:'',rne:'',siteweb:"",
+            validation:
+            {
+              error:
+              [true,false,true,true],
+              errorMsg:
+              ['merci de remplir votre raison sociale',
+              'merci de remplir votre secteur activité',
+              'merci de remplir votre catégorie du produit',
+              'merci de remplir votre chiffre affaire',
+
+      
+            ]}},
+            entrepriseFormError:[false,false,false,false],
+            entrepriseFormErrorMsg:['','','',''],
+            /*nomEntreprise:"",
+            activite:"",
+            produit:"",
+            affaire:null,
+            rne:null,
+            siteweb:'',*/
+        };
+      }
+
+
+      onChangeEntrepriseForm=(value,key,index)=>{
+        let aux ={...this.state.entrepriseFormData}
+        aux[key]=value
+        if(key=="raison_sociale"){
+          
+          if(value.trim()===''){
+            aux.validation.error[index]=true
+            aux.validation.errorMsg[index]='merci de remplir votre raison sociale'
+          }else{
+            aux.validation.error[index]=false
+            aux.validation.errorMsg[index]=''
+          }
+        }
+        
+        if(key=="produit"){
+          
+          if(value.trim()===''){
+            aux.validation.error[index]=true
+            aux.validation.errorMsg[index]='merci de remplir votre catégorie des produits'
+          }else{
+            aux.validation.error[index]=false
+            aux.validation.errorMsg[index]=''
+          }
+        }
+        if(key=="affaire"){
+          
+          if(value.trim()===''){
+            aux.validation.error[index]=true
+            aux.validation.errorMsg[index]='merci de remplir votre affaire'
+          }else{
+            aux.validation.error[index]=false
+            aux.validation.errorMsg[index]=''
+          }
+        }
+        
+        
+
+      
+        this.setState({entrepriseFormData:aux})
+        
+      }
+
+      handleOk = () => {
+        this.setState({isModalVisible:false})
+       };
+     
+        handleCancel = () => {
+         this.setState({isModalVisible:false})
+       };
+
       async componentDidMount() {
           //fake API in the URL
         const url = "https://api.randomuser.me/";
         const response = await fetch(url);
         const data = await response.json();
         this.setState({ user: data.results[0], loading: false });
+        this.handleProps()
       }
       //get the new password 
       updatePassword(event) {
@@ -51,16 +143,7 @@ class EspaceClient extends React.Component {
           password: event.target.value 
         });
       }
-    constructor(props) {
-    super(props);
-    this.state = {
-        id:props.id,
-        password:"",
-        withIcons: 1,
-        isShown: true
-        
-    };
-  }
+ 
   toggleTabs = (e, stateName, index) => {
     e.preventDefault();
     this.setState({
@@ -72,25 +155,138 @@ class EspaceClient extends React.Component {
     var context = this;
 
   }
-
-  closeModal = () => {
-    this.setState({ isShown: false });
+  SaveChanges=()=>{
+    let formdata = new FormData()
+    console.log("first",this.state.first_name);
+    formdata.append("first_name",this.state.first_name)
+    formdata.append("last_name",this.state.last_name)
     
-    this.toggleScrollLock();
-  };
-  onKeyDown = (event) => {
-    if (event.keyCode === 27) {
-      this.closeModal();
-    }
-  };
-  onClickOutside = (event) => {
-    if (this.modal && this.modal.contains(event.target)) return;
-    this.closeModal();
-  };
+   
 
-  toggleScrollLock = () => {
-    document.querySelector('html').classList.toggle('scroll-lock');
-  };
+    fetch(apiURL+'/api/user_update_profile',{headers:{
+      'Authorization': "Bearer "+this.props.auth.token
+    },
+    method:'POST',
+    body: formdata
+  }) .then(response => {
+    if (response.status==201){
+
+      fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+        'Authorization': 'Bearer '+this.props.auth.token}})
+       .then(response => response.json()).then(data => {
+         console.log('user data',data.user);
+         const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
+        this.props.dispatch(action)
+         this.props.history.goBack()
+    
+       })
+    }
+
+  })
+  }
+  onSubmit = async ()=>{
+    console.log("im here");
+    const ERROR = [...this.state.entrepriseFormData.validation.error]
+    const ERROR_MSG=[...this.state.entrepriseFormData.validation.errorMsg]
+    this.setState({
+      entrepriseFormError:ERROR,
+      entrepriseFormErrorMsg:ERROR_MSG
+    })
+    if(!this.state.entrepriseFormData.validation.error.includes(true)){
+    let formdata = new FormData()
+
+    formdata.append("raison_sociale",this.state.entrepriseFormData.raison_sociale)
+    formdata.append("cat_produits",this.state.entrepriseFormData.produit)
+    formdata.append("rne",this.state.entrepriseFormData.rne)
+    formdata.append("site_web",this.state.entrepriseFormData.siteweb)
+    formdata.append("chiffre_affaire",this.state.entrepriseFormData.affaire)
+    formdata.append("secteur_activite",this.state.entrepriseFormData.activite)
+  
+   await fetch(apiURL+'/api/Add_magasin_front',{headers:{
+        'Authorization': "Bearer "+this.props.auth.token
+      },
+      method:'POST',
+      body: formdata
+    }).then(response => {
+      if(response.status == 201){
+         fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+          'Authorization': 'Bearer '+this.props.auth.token}})
+         .then(response => response.json()).then(data => {
+          const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
+          this.props.dispatch(action)
+
+          
+           this.props.history.goBack()  
+          })
+      }
+    
+    })
+
+    
+    
+   
+
+    
+      
+    }  
+        
+        
+       
+      
+}
+
+handleProps=()=>{
+  if(this.props.auth.user){
+    this.setState({first_name:this.props.auth.user.firstName})
+    this.setState({last_name:this.props.auth.user.lastName})
+  }else if(this.props.auth.client.user){
+    this.setState({first_name:this.props.auth.client.user.firstName})
+    this.setState({last_name:this.props.auth.client.user.lastName})
+  }else if (this.props.auth.client !== null){
+    this.setState({first_name:this.props.auth.client.firstName})
+    this.setState({last_name:this.props.auth.client.lastName})
+  }
+  }
+
+/*onChangeActivite(e) {
+  this.setState({
+    activite: e
+  });
+ 
+}
+
+onChangeProduit(e) {
+  this.setState({
+    produit: e
+  });
+
+}
+
+onChangeAffaire(e) {
+  this.setState({
+    affaire: e
+  });
+
+}
+
+onChangeRne(e) {
+  this.setState({
+    rne: e
+  });
+  
+}
+onChangeSiteweb(e) {
+  this.setState({
+    siteweb: e
+  });
+
+}
+onChangeNomEnreprise(e) {
+  this.setState({nomEntreprise:e})
+ 
+}*/
+  
+
 
   render() {
     console.log();
@@ -115,10 +311,9 @@ class EspaceClient extends React.Component {
                             className="img-center img-fluid rounded-circle"
                             src={this.state.user.picture.large}
                             />
-                            {this.props.auth.client && this.props.auth.client.user ?(
-                              <h4 className="title left-marg" >{this.props.auth.client.user.firstName} {this.props.auth.client.user.lastName}</h4>
-                            ): this.props.auth.client ? 
-                           (<h4 className="title left-marg" >{this.props.auth.client.firstName} {this.props.auth.client.lastName}</h4>
+                            {this.props.auth.user && this.props.auth.user  ?(
+                              <h4 className="title left-marg" >{this.props.auth.user.firstName} {this.props.auth.user.lastName}</h4>
+                            
                            
                            ):null                 
                           }
@@ -175,45 +370,29 @@ class EspaceClient extends React.Component {
                                     <Col >
                                         <FormGroup>
                                             <Label >First name</Label>
-                                            {this.props.auth.client && this.props.auth.client.user ?(
-                                              <Input type="text" placeholder="First name" value={this.props.auth.client.user.firstName} />
-                                            ): this.props.auth.client ? (
-                                              <Input type="text" placeholder="First name" value={this.props.auth.client.firstName} />
-                                            ):null
-                                           }    
+                                            
+                                              <Input type="text" placeholder="First name" value={this.state.first_name} onChange={(e)=>this.setState({first_name:e.target.value})} />
+                                           
+                                              
                                            
                                         </FormGroup>
                                     </Col>
                                     <Col >
                                         <FormGroup>
                                             <Label >Seconde Name</Label>
-                                            {this.props.auth.client && this.props.auth.client.user ?(
-                                            <Input type="text" placeholder="Last name" value={this.props.auth.client.user.lastName} />
-                                            ):this.props.auth.client ?
-                                          (
-                                            <Input type="text" placeholder="Last name" value={this.props.auth.client.lastName} />
-                                          ):null
-                                          }
+                                            
+                                            <Input type="text" placeholder="Last name" value={this.state.last_name}  onChange={(e)=>this.setState({last_name:e.target.value})}/>
+                                            
+               
+                                            
+                                        
                                         </FormGroup>
                                     </Col>
                                 </Row> 
-                                <Row>
-                                    <Col >
-                                        <FormGroup>
-                                            <Label >E mail Adresse</Label>
-                                            {this.props.auth.client && this.props.auth.client.user ?(
-                                            <Input type="text" placeholder="E mail Adresse" value={this.props.auth.client.user.username}/>
-                                            ):this.props.auth.client ? (
-                                              <Input type="text" placeholder="E mail Adresse" value={this.props.auth.client.username}/>
-                                            ):null
-                                          }
-                                        </FormGroup>
-                                    </Col>
-                                   
-                                </Row> 
+
                                
                             </Form>
-                            <Button color="primary">Save Changes</Button>
+                            <Button color="primary" onClick={this.SaveChanges.bind(this)}>Save Changes</Button>
           </TabPane>
           <TabPane tabId="withIcons2">
           <Row>
@@ -248,6 +427,61 @@ class EspaceClient extends React.Component {
                             </Row>
                             <Button color="primary" onClick={this.updateNewPassword.bind(this)}>Save Changes</Button>
           </TabPane>
+          <TabPane tabId="withIcons3">
+          <Row>
+          <Col sm="5">
+          <div>
+          Informations forfait :
+          
+          </div>
+          </Col>
+          <Col sm="7">
+          <Card body>
+          <Row>
+          <Col sm="4">
+          <CardTitle tag="h5">Membre depuis</CardTitle>
+
+            
+              <CardText>
+                <span style={{marginLeft:"18%"}}>_____</span>  
+            </CardText>
+           
+        
+           
+            </Col>
+          <Col sm="4">
+          <CardTitle tag="h5">forfait</CardTitle>
+
+            {this.props.auth.client && this.props.auth.client.offre ?(
+              <CardText>
+            {this.props.auth.client.offre.nom}
+            </CardText>
+            ):
+          <CardText></CardText>
+          }
+            <CardText>
+            {this.props.client}
+            </CardText>
+            </Col>
+           
+            <Col sm="4">
+            <CardTitle tag="h5">Actif</CardTitle>
+  
+              
+                <CardText>
+                  <span>_____</span>
+              </CardText>
+            
+              </Col>
+          </Row>
+            
+            
+          </Card>
+          </Col>
+          </Row>
+          
+         
+         </TabPane>
                 <TabPane tabId="withIcons3">
                 <Row>
                 <Col sm="5">
@@ -259,10 +493,13 @@ class EspaceClient extends React.Component {
                 </Col>
                 <Col sm="7">
                 <Card body>
-                  <CardTitle tag="h5">store name</CardTitle>
-                  <CardText><a href={`http://localhost:3006/${this.props.auth.token}`}>
-                  <Button>Go to Store</Button>
-                  </a></CardText>
+                {this.props.auth.client ?(
+                  <CardTitle >{this.props.auth.client.raison_sociale}</CardTitle>
+                  
+                ):<CardTitle tag="h5"></CardTitle>}
+                <CardText><a href={`http://localhost:3006/${this.props.auth.token}`}>
+                <Button>Go to Store</Button>
+                </a></CardText>
                   
                 </Card>
                 </Col>
@@ -275,17 +512,33 @@ class EspaceClient extends React.Component {
         </Card>
         </Col>
         </Row>
+      
         
-        {this.props.auth.client && !this.props.auth.client.raison_sociale ?
-           (<EntrepriseModal
-          onSubmit={this.props.onSubmit}
-          modalRef={(n) => (this.modal = n)}
-          buttonRef={(n) => (this.closeButton = n)}
-          closeModal={this.closeModal}
-          onKeyDown={this.onKeyDown}
-          onClickOutside={this.onClickOutside}
-        />)  : null
-        }
+         {!this.props.auth.client || !this.props.auth.client.raison_sociale ?(
+        <MyModal 
+        entreprise={"entreprise"}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+        isModalVisible= {this.state.isModalVisible}
+        onChangeEntrepriseForm={this.onChangeEntrepriseForm}
+        entrepriseFormError={this.state.entrepriseFormError}
+        entrepriseFormErrorMsg={this.state.entrepriseFormErrorMsg}
+        entrepriseFormData={this.state.entrepriseFormData}
+         nom={"Nom de l'entreprise :"}
+         activite={"Secteur d'activité :"}
+         affaire={"Chiffre d'affaire annuel :"}
+         rne={"Rne"}
+         siteweb={"site web"}
+         produit={"produits"}
+        onSubmit={this.onSubmit}
+        />
+       ):null
+
+       }
+        
+      
+      
+       
 
         
 
