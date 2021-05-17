@@ -5,7 +5,7 @@ import { Container,Button } from "reactstrap";
 import { apiURL } from "../../Config/config";
 import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
-import MyModal from "../uiKit/myModal";
+import ModalKit from "../uiKit/ModalKit";
 
 class Header extends Component {
   constructor(props) {
@@ -266,7 +266,7 @@ class Header extends Component {
            {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
            <Button onClick={this.showModal}>Démarer</Button>
 
-            <MyModal 
+            <ModalKit 
             isModalVisible= {this.state.isModalVisible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
