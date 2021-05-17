@@ -6,13 +6,14 @@ import { apiURL } from "../../Config/config";
 import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
 import ModalKit from "../uiKit/ModalKit";
+import { Spin } from 'antd';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isModalVisible:false,
-      
+      loading:false,
       registerFormData:
       {name:'',prenom:"",email:'',password1:'',password2:'',
       validation:
@@ -125,7 +126,7 @@ class Header extends Component {
 
  
    onSubmit = async () => {
-
+    this.setState({loading:true})
     const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: this.state.registerFormData.email, password: this.state.registerFormData.password1}
     this.props.dispatch(action)
     const ERROR = [...this.state.registerFormData.validation.error]
@@ -151,6 +152,7 @@ class Header extends Component {
         if(response.status == 201)
         {
           this.getTokenUser();
+          
         }
     
       })
@@ -160,8 +162,8 @@ class Header extends Component {
     
   }
    }
-  getTokenUser=()=>{
-
+  getTokenUser= async()=>{
+ 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const requestOptions = {
@@ -173,32 +175,53 @@ class Header extends Component {
       }),
     };
     
-    fetch(apiURL+"/api/login_check", requestOptions)
-      .then(response => {
-        if(response.status == 200){
-          response.text().then(result =>{
-            const str = JSON.stringify(result).substring(14)
-            const newStr = str.substring(0, str.length - 4) 
-            console.log("hello",newStr);
-            fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
-              'Authorization': 'Bearer '+newStr}})
-             .then(response => response.json()).then(data => {
-               console.log('data',data);
-                const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, user:data}
-                this.props.dispatch(action)
-              
-          
-            
-            window.location='/espace-client'
-          })
-        })
-        }
-        else{
-          const action = {type:"GET_TOKEN", token:'', isLogIn:false }
-            this.props.dispatch(action)
-        }
-      })
-      .catch(error => console.log('error', error));
+    const dataToken = await fetch(apiURL+"/api/login_check", requestOptions);
+    if(dataToken.status == 200)
+    {
+    const result = await dataToken.json();
+      //const result = dataTokenJson.text();
+      console.log("token", JSON.stringify(result));
+      const str = JSON.stringify(result).substring(10)
+      const newStr = str.substring(0, str.length - 2) 
+      console.log("hello",newStr);
+      const dataMagasin = await fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+        'Authorization': 'Bearer '+newStr}});
+        console.log("essai3", dataMagasin);
+        const dataMagasinJson = await  dataMagasin.json();
+        console.log("essai4",dataMagasinJson);
+        const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, user:dataMagasinJson}
+        this.props.dispatch(action) 
+        this.setState({loading:false})  
+        window.location='/espace-client'
+      
+    }
+    else{
+      const action = {type:"GET_TOKEN", token:'', isLogIn:false }
+      this.props.dispatch(action)
+    }
+  //  await fetch(apiURL+"/api/login_check", requestOptions)
+  //     .then(response => {
+  //       if(response.status == 200){
+  //         response.text().then(result =>{
+  //           const str = JSON.stringify(result).substring(14)
+  //           const newStr = str.substring(0, str.length - 4) 
+           
+  //           fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+  //             'Authorization': 'Bearer '+newStr}})
+  //            .then(response => response.json()).then(data => {
+  //              console.log('data',data);
+  //               const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, user:data}
+  //               this.props.dispatch(action)
+  //           window.location='/espace-client'
+  //         })
+  //       })
+  //       }
+  //       else{
+  //         const action = {type:"GET_TOKEN", token:'', isLogIn:false }
+  //           this.props.dispatch(action)
+  //       }
+  //     })
+  //     .catch(error => console.log('error', error));
    
   }
 
@@ -249,7 +272,6 @@ class Header extends Component {
       return (
         
         <div className="page-header header-filter">
-        
         <div className="squares square1" />
         <div className="squares square2" />
         <div className="squares square3" />
@@ -257,6 +279,10 @@ class Header extends Component {
         <div className="squares square5" />
         <div className="squares square6" />
         <div className="squares square7" />
+        {this.state.loading?
+        <div className="example">
+        <Spin size="large" />
+      </div>:
         <Container>
           <div className="content-center brand">
             <h1 className="h1-seo">Shifti</h1>
@@ -284,7 +310,7 @@ class Header extends Component {
             />
            
           </div>
-        </Container>
+        </Container>}
       </div>
       )
   }

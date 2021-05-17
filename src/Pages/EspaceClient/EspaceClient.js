@@ -36,7 +36,7 @@ import { apiURL } from "../../Config/config";
 
 class EspaceClient extends React.Component {
     state = {
-        loading: true,
+        // loading: true,
         user: null,
        
         
@@ -131,10 +131,10 @@ class EspaceClient extends React.Component {
 
       async componentDidMount() {
           //fake API in the URL
-        const url = "https://api.randomuser.me/";
-        const response = await fetch(url);
-        const data = await response.json();
-        this.setState({ user: data.results[0], loading: false });
+        // const url = "https://api.randomuser.me/";
+        // const response = await fetch(url);
+        // const data = await response.json();
+        // this.setState({ user: data.results[0], loading: false });
         this.handleProps()
       }
       //get the new password 
@@ -290,13 +290,13 @@ onChangeNomEnreprise(e) {
 
   render() {
     console.log();
-    if (this.state.loading) {
-        return <div>loading...</div>;
-      }
+    // if (this.state.loading) {
+    //     return <div>loading...</div>;
+    //   }
   
-      if (!this.state.user) {
-        return <div>didn't get a user</div>;
-      }
+    //   if (!this.state.user) {
+    //     return <div>didn't get a user</div>;
+    //   }
     return (
       <>
       <Navbar />
@@ -306,11 +306,11 @@ onChangeNomEnreprise(e) {
         <Col className="ml-auto mr-auto" lg="10" md="6">
             <Card className="card-coin card-plain">
                         <CardHeader>
-                            <img
+                            {/* <img
                             alt="..."
                             className="img-center img-fluid rounded-circle"
                             src={this.state.user.picture.large}
-                            />
+                            /> */}
                             {this.props.auth.user && this.props.auth.user  ?(
                               <h4 className="title left-marg" >{this.props.auth.user.firstName} {this.props.auth.user.lastName}</h4>
                             
