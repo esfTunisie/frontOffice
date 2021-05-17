@@ -29,7 +29,7 @@ import {
 } from "reactstrap";
 import EntrepriseModal from "../../Components/Modal/EntrepriseModal";
 import { connect } from "react-redux";
-import MyModal from "../../Components/uiKit/myModal";
+import ModalKit from "../../Components/uiKit/ModalKit";
 import { apiURL } from "../../Config/config";
 
 
@@ -515,7 +515,7 @@ onChangeNomEnreprise(e) {
       
         
          {!this.props.auth.client || !this.props.auth.client.raison_sociale ?(
-        <MyModal 
+        <ModalKit 
         entreprise={"entreprise"}
         onOk={this.handleOk}
         onCancel={this.handleCancel}

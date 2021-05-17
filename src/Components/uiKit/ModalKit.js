@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Button, Input, Select } from 'antd';
 import 'antd/dist/antd.css'; 
 
-class MyModal extends Component {
+class ModalKit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -207,4 +207,4 @@ class MyModal extends Component {
     }
 }
 
-export default MyModal
+export default ModalKit
