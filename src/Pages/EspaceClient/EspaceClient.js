@@ -38,10 +38,6 @@ class EspaceClient extends React.Component {
     state = {
         // loading: true,
         user: null,
-       
-        
- 
-        
       };
 
       constructor(props) {
@@ -130,14 +126,9 @@ class EspaceClient extends React.Component {
        };
 
       async componentDidMount() {
-          //fake API in the URL
-        // const url = "https://api.randomuser.me/";
-        // const response = await fetch(url);
-        // const data = await response.json();
-        // this.setState({ user: data.results[0], loading: false });
+
         this.handleProps()
       }
-      //get the new password 
       updatePassword(event) {
         this.setState({
           password: event.target.value 
@@ -178,7 +169,6 @@ class EspaceClient extends React.Component {
          const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
         this.props.dispatch(action)
          this.props.history.goBack()
-    
        })
     }
 
@@ -194,7 +184,6 @@ class EspaceClient extends React.Component {
     })
     if(!this.state.entrepriseFormData.validation.error.includes(true)){
     let formdata = new FormData()
-
     formdata.append("raison_sociale",this.state.entrepriseFormData.raison_sociale)
     formdata.append("cat_produits",this.state.entrepriseFormData.produit)
     formdata.append("rne",this.state.entrepriseFormData.rne)
@@ -214,25 +203,11 @@ class EspaceClient extends React.Component {
          .then(response => response.json()).then(data => {
           const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
           this.props.dispatch(action)
-
-          
-           this.props.history.goBack()  
+          this.props.history.goBack()  
           })
       }
-    
-    })
-
-    
-    
-   
-
-    
-      
-    }  
-        
-        
-       
-      
+    })   
+    }       
 }
 
 handleProps=()=>{
@@ -248,43 +223,6 @@ handleProps=()=>{
   }
   }
 
-/*onChangeActivite(e) {
-  this.setState({
-    activite: e
-  });
- 
-}
-
-onChangeProduit(e) {
-  this.setState({
-    produit: e
-  });
-
-}
-
-onChangeAffaire(e) {
-  this.setState({
-    affaire: e
-  });
-
-}
-
-onChangeRne(e) {
-  this.setState({
-    rne: e
-  });
-  
-}
-onChangeSiteweb(e) {
-  this.setState({
-    siteweb: e
-  });
-
-}
-onChangeNomEnreprise(e) {
-  this.setState({nomEntreprise:e})
- 
-}*/
   
 
 
