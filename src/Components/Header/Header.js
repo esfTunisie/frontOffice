@@ -8,139 +8,144 @@ import isEmail from 'validator/lib/isEmail';
 import ModalKit from "../uiKit/ModalKit";
 import { Spin } from 'antd';
 
+
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalVisible:false,
-      loading:false,
-      registerFormData:
-      {name:'',prenom:"",email:'',password1:'',password2:'',
-      validation:
-      {
-        error:
-        [true,true,true,true],
-        errorMsg:
-        ['merci de remplir votre nom',
-        'merci de remplir votre prénom',
-        'merci de remplir votre email',
-        'merci de remplir votre mot de passe',
-        'merci de confirmer votre mot de passe'
+    //   isModalVisible:false,
+    //   loading:false,
+    //   registerFormData:
+    //   {name:'',prenom:"",email:'',password1:'',password2:'',
+    //   validation:
+    //   {
+    //     error:
+    //     [true,true,true,true],
+    //     errorMsg:
+    //     ['merci de remplir votre nom',
+    //     'merci de remplir votre prénom',
+    //     'merci de remplir votre email',
+    //     'merci de remplir votre mot de passe',
+    //     'merci de confirmer votre mot de passe'
 
-      ]}},
-      registerFormError:[false,false,false,false,false],
-      registerFormErrorMsg:['','','',''],
-      passwordValue:""
-      /*name:"",
-      prenom:"",
-      email:"",
-      password1:"",
-      password2:"",
-      username:"",*/
+    //   ]}},
+    //   registerFormError:[false,false,false,false,false],
+    //   registerFormErrorMsg:['','','',''],
+    //   passwordValue:""
+    //   /*name:"",
+    //   prenom:"",
+    //   email:"",
+    //   password1:"",
+    //   password2:"",
+    //   username:"",*/
       
-    };
+     };
   }
 
- onChangeRegisterForm=(value,key,index)=>{
-  console.log("hello from register");
-  let aux = {...this.state.registerFormData}
-  aux[key]=value
-  if(key==='name'){
-    if(value.trim()===''){
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='merci de remplir votre nom'
-    }else{
-      aux.validation.error[index]=false
-      aux.validation.errorMsg[index]=''
-    }
-  }
-  if(key==='prenom'){
-    if(value.trim()===''){
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='merci de remplir votre prenom'
-    }else{
-      aux.validation.error[index]=false
-      aux.validation.errorMsg[index]=''
-    }
-  }
 
-  if(key=="email"){
+//  onChangeRegisterForm=(value,key,index)=>{
+//   console.log("hello from register");
+//   let aux = {...this.state.registerFormData}
+//   aux[key]=value
+//   if(key==='name'){
+//     if(value.trim()===''){
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='merci de remplir votre nom'
+//     }else{
+//       aux.validation.error[index]=false
+//       aux.validation.errorMsg[index]=''
+//     }
+//   }
+//   if(key==='prenom'){
+//     if(value.trim()===''){
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='merci de remplir votre prenom'
+//     }else{
+//       aux.validation.error[index]=false
+//       aux.validation.errorMsg[index]=''
+//     }
+//   }
+
+//   if(key=="email"){
         
-    if(isEmpty(value)){
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='merci de remplir votre Email'
-    } if(!isEmail(value)){
+//     if(isEmpty(value)){
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='merci de remplir votre Email'
+//     } if(!isEmail(value)){
       
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='merci de remplir votre email correctement'
-    }
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='merci de remplir votre email correctement'
+//     }
     
     
-    else{
-      aux.validation.error[index]=false
-      aux.validation.errorMsg[index]=''
-    }
-  }
-  if(key==='password1'){
-    if(value.trim()===''){
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='merci de remplir votre password'
-    }
-    else if (value.length < 8)
-        {
-          aux.validation.error[index]=true
-          aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
-        }
-        else{
-          this.setState({passwordValue:value})
-          aux.validation.error[index]=false
-          aux.validation.errorMsg[index]=''
+//     else{
+//       aux.validation.error[index]=false
+//       aux.validation.errorMsg[index]=''
+//     }
+//   }
+//   if(key==='password1'){
+//     if(value.trim()===''){
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='merci de remplir votre password'
+//     }
+//     else if (value.length < 8)
+//         {
+//           aux.validation.error[index]=true
+//           aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
+//         }
+//         else{
+//           this.setState({passwordValue:value})
+//           aux.validation.error[index]=false
+//           aux.validation.errorMsg[index]=''
        
-        }
-  } 
-  if(key=="password2"){
+//         }
+//   } 
+//   if(key=="password2"){
         
         
-    if(isEmpty(value)){
+//     if(isEmpty(value)){
       
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='merci de confirmer votre mot de passe'
-    }else if (value.length < 8)
-    {
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
-    }else if(value !== this.state.passwordValue){
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='merci de confirmer votre mot de passe'
+//     }else if (value.length < 8)
+//     {
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
+//     }else if(value !== this.state.passwordValue){
      
-      aux.validation.error[index]=true
-      aux.validation.errorMsg[index]='password not match'
-    }
+//       aux.validation.error[index]=true
+//       aux.validation.errorMsg[index]='password not match'
+//     }
     
-    else{
-      aux.validation.error[index]=false
-      aux.validation.errorMsg[index]=''
-    }
-  }
-  this.setState({registerFormData:aux})
- }
+//     else{
+//       aux.validation.error[index]=false
+//       aux.validation.errorMsg[index]=''
+//     }
+//   }
+//   this.setState({registerFormData:aux})
+//  }
 
 
  
    onSubmit = async () => {
-    this.setState({loading:true})
-    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: this.state.registerFormData.email, password: this.state.registerFormData.password1}
+    
+    const action = {type:"GET_TOKEN", token:'', isLogIn:'',
+    //username: this.state.registerFormData.email, password: this.state.registerFormData.password1
+  }
     this.props.dispatch(action)
-    const ERROR = [...this.state.registerFormData.validation.error]
-    const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
-    this.setState({
-      registerFormError:ERROR,
-      registerFormErrorMsg:ERROR_MSG
-    })
-    if(!this.state.registerFormData.validation.error.includes(true)){
+    // const ERROR = [...this.state.registerFormData.validation.error]
+    // const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
+    // this.setState({
+    //   registerFormError:ERROR,
+    //   registerFormErrorMsg:ERROR_MSG
+    // })
+    if(!this.props.registerFormData.validation.error.includes(true)){
       let formdata =new FormData()
-      formdata.append('first_name',this.state.registerFormData.name)
-      formdata.append('last_name',this.state.registerFormData.prenom)
-      formdata.append('email',this.state.registerFormData.email)
-      formdata.append('password',this.state.registerFormData.password1)
+      // formdata.append('first_name',this.state.registerFormData.name)
+      // formdata.append('last_name',this.state.registerFormData.prenom)
+      // formdata.append('email',this.state.registerFormData.email)
+      // formdata.append('password',this.state.registerFormData.password1)
+      this.setState({loading:true})
       const requestOptions = {
         method: 'POST',
         // headers: myHeaders,
@@ -296,16 +301,17 @@ class Header extends Component {
             isModalVisible= {this.state.isModalVisible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
+            error={this.props.error}
             register={"register"}
             labelname={"Nom"}
             labelprenom={"Prénom"}
             email={"Adresse Email"}
             password={"Mot de passe"}
             confirmpassword={"Confirmer mot de passe"}
-            onChangeRegisterForm={this.onChangeRegisterForm}  
-           registerFormError={this.state.registerFormError}
-           registerFormErrorMsg={this.state.registerFormErrorMsg}
-           registerFormData={this.state.registerFormData}
+            // onChangeRegisterForm={this.validationFormRegister}  
+            // registerFormError={this.state.registerFormError}
+            // registerFormErrorMsg={this.state.registerFormErrorMsg}
+            // registerFormData={this.state.registerFormData}
             onSubmit={this.onSubmit}
             />
            

@@ -27,7 +27,7 @@ import {
    CardTitle, 
    CardText 
 } from "reactstrap";
-import EntrepriseModal from "../../Components/Modal/EntrepriseModal";
+
 import { connect } from "react-redux";
 import ModalKit from "../../Components/uiKit/ModalKit";
 import { apiURL } from "../../Config/config";

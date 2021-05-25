@@ -25,16 +25,14 @@ class Offre extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isModalVisible:false,
     };
   }
 
   getOffre = ()=>{
     
-     fetch('http://localhost:8000/api/get_offre',{
-      headers:{
-        'Authorization': 'Bearer '+this.props.auth.token
-      }
-    }).then(response => response.json()).then(data =>{console.log("datya",data)} )
+     fetch('http://localhost:8000/api/get_offre')
+     .then(response => response.json()).then(data => this.setState({dataOffre:data}) )
   }
     
 
@@ -43,9 +41,12 @@ class Offre extends Component {
     
     this.getOffre()
   }
+  showModal=()=>{
+    this.setState({isModalVisible:true})
+  }
  
   render() {
-   console.log("state", this.state.dataOffre && this.state.dataOffre);
+  
   return (
     <>
       <div>
@@ -85,12 +86,12 @@ class Offre extends Component {
                         <hr className="line-primary" />
                       </Col>
                     </Row>
-                    <Row>
-                    <span>Plan {offre.description}	</span>
+                    <Row className="text-center">
+                    <p>{offre.description}	</p>
                     </Row>
                   </CardBody>
                   <CardFooter className="text-center">
-                    <Button  className="btn-simple" color="primary">
+                    <Button onClick={this.showModal} className="btn-simple" color="primary">
                       Get plan
                     </Button>
                   </CardFooter>

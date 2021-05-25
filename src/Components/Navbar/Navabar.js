@@ -19,7 +19,7 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { apiURL } from '../../Config/config';
-import IndexRegisterModal from '../IndexRegisterModal/IndexRegisterModal';
+
 
 class Navbars extends React.Component {
   constructor(props) {
@@ -208,10 +208,7 @@ render(){
                 Getting started
               </DropdownToggle>
               <DropdownMenu className="dropdown-with-icons">
-                <DropdownItem>
-                  
-                 <div> <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} /></div>
-                </DropdownItem>
+                
                 <DropdownItem tag={Link} to="/espace-client">
                   <i className="tim-icons icon-single-02" />
                   Profile

@@ -1,21 +1,124 @@
 import React, { Component } from 'react'
 import { Modal, Button, Input, Select } from 'antd';
 import 'antd/dist/antd.css'; 
+import isEmpty from 'validator/lib/isEmpty';
+import isEmail from 'validator/lib/isEmail';
+import { connect } from 'react-redux';
 
 class ModalKit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    
+      isModalVisible:false,
+      loading:false,
+      registerFormData:
+      {name:'',prenom:"",email:'',password1:'',password2:'',
+      validation:
+      {
+        error:
+        [true,true,true,true],
+        errorMsg:
+        ['merci de remplir votre nom',
+        'merci de remplir votre prénom',
+        'merci de remplir votre email',
+        'merci de remplir votre mot de passe',
+        'merci de confirmer votre mot de passe'
+      ]}},
+      registerFormError:[false,false,false,false,false],
+      registerFormErrorMsg:['','','',''],
+      passwordValue:""
 
+      
     };
   }
 
-  
 
+ onChangeRegisterForm=(value,key,index)=>{
+  console.log("hello from register");
+  let aux = {...this.state.registerFormData}
+  aux[key]=value
+  if(key==='name'){
+    if(value.trim()===''){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre nom'
+    }else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+  if(key==='prenom'){
+    if(value.trim()===''){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre prenom'
+    }else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
 
+  if(key=="email"){
+        
+    if(isEmpty(value)){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre Email'
+    } if(!isEmail(value)){
+      
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre email correctement'
+    }
+    
+    
+    else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+  if(key==='password1'){
+    if(value.trim()===''){
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de remplir votre password'
+    }
+    else if (value.length < 8)
+        {
+          aux.validation.error[index]=true
+          aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
+        }
+        else{
+          this.setState({passwordValue:value})
+          aux.validation.error[index]=false
+          aux.validation.errorMsg[index]=''
+       
+        }
+  } 
+  if(key=="password2"){
+        
+        
+    if(isEmpty(value)){
+      
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='merci de confirmer votre mot de passe'
+    }else if (value.length < 8)
+    {
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='le mot de passe doit contient 8 caractére'
+    }else if(value !== this.state.passwordValue){
+     
+      aux.validation.error[index]=true
+      aux.validation.errorMsg[index]='password not match'
+    }
+    
+    else{
+      aux.validation.error[index]=false
+      aux.validation.errorMsg[index]=''
+    }
+  }
+  this.setState({registerFormData:aux})
+  const ERROR = [...this.state.registerFormData.validation.error]
+  const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
 
-
+  const action = {type:"GET_ERROR", registerFormError:ERROR, registerFormErrorMsg:ERROR_MSG }
+  this.props.dispatch(action)
+ }
     render() {
       console.log(this.props);
         return (
@@ -32,18 +135,20 @@ class ModalKit extends Component {
 
           <div>
             <span >{this.props.labelname}</span>
-            <Input  id="name"  onChange={(e)=>this.props.onChangeRegisterForm(e.target.value,"name",0)} value={this.props.registerFormData.name} />
-            {this.props.registerFormError[0]&&<div style={{color:'red'}}>{this.props.registerFormErrorMsg[0]}</div>}
+            <Input  id="name" 
+             onChange={(e)=>this.onChangeRegisterForm(e.target.value,"name",0)}
+              value={this.state.registerFormData.name} />
+            {this.state.registerFormError[0]&&<div style={{color:'red'}}>{this.state.registerFormErrorMsg[0]}</div>}
           </div>
           ):null
-        
         }
           { this.props.register === "register" ?
           (
             <div >
             <span >{this.props.labelprenom}</span>
-            <Input  id="prenom"  onChange={(e)=>this.props.onChangeRegisterForm(e.target.value,"prenom",1)} value={this.props.registerFormData.prenom}/>
-            {this.props.registerFormError[1]&&<div style={{color:'red'}}>{this.props.registerFormErrorMsg[1]}</div>}
+            <Input  id="prenom"  onChange={(e)=>this.onChangeRegisterForm(e.target.value,"prenom",1)} 
+            value={this.state.registerFormData.prenom}/>
+            {this.state.registerFormError[1]&&<div style={{color:'red'}}>{this.state.registerFormErrorMsg[1]}</div>}
           </div>
           ):null
           }
@@ -55,32 +160,26 @@ class ModalKit extends Component {
               className="form-control color-input"
               id="email"
               placeholder="name@example.com"
-              value={this.props.registerFormData.email}
-              onChange={(e)=>this.props.onChangeRegisterForm(e.target.value,"email",2)}
-              
+              value={this.state.registerFormData.email}
+              onChange={(e)=>this.onChangeRegisterForm(e.target.value,"email",2)}
             />
-            {this.props.registerFormError[2]&&<div style={{color:'red'}}>{this.props.registerFormErrorMsg[2]}</div>}
+            {this.state.registerFormError[2]&&<div style={{color:'red'}}>{this.state.registerFormErrorMsg[2]}</div>}
           </div>
           ):null
-
           }
-          
           {this.props.register === "register" ? (
             <div >
             <span>{this.props.password}</span>
             <Input
               type="password"
               className="form-control color-input"
-              value={this.props.registerFormData.password1}
-              onChange={(e)=>this.props.onChangeRegisterForm(e.target.value,'password1',3)}
-  
+              value={this.state.registerFormData.password1}
+              onChange={(e)=>this.onChangeRegisterForm(e.target.value,'password1',3)}
             />
-            {this.props.registerFormError[3]&&<span style={{color:'red'}}>{this.props.registerFormErrorMsg[3]}</span>}
+            {this.state.registerFormError[3]&&<span style={{color:'red'}}>{this.state.registerFormErrorMsg[3]}</span>}
           </div>
           ):null
-
           }
-
           {this.props.register === "register" ? (
             <div >
             <span>{this.props.confirmpassword}</span>
@@ -88,22 +187,13 @@ class ModalKit extends Component {
               type="password"
               className="form-control color-input"
               id="password2"
-              value={this.props.registerFormData.password2}
-              onChange={(e)=>this.props.onChangeRegisterForm(e.target.value,'password2',4)}
+              value={this.state.registerFormData.password2}
+              onChange={(e)=>this.onChangeRegisterForm(e.target.value,'password2',4)}
             />
-            {this.props.registerFormError[4]&&<span style={{color:'red'}}>{this.props.registerFormErrorMsg[4]}</span>}
+            {this.state.registerFormError[4]&&<span style={{color:'red'}}>{this.state.registerFormErrorMsg[4]}</span>}
             </div>
-            
-            
-           
-            
           ):null
-
           }
-
-
-     
-
           {this.props.entreprise === "entreprise" ? (
             <div>
           <span >{this.props.nomEntreprise}</span>
@@ -192,10 +282,7 @@ class ModalKit extends Component {
           ):null
 
           }
-      
-
-        
-        <div >
+        <div>
           <button className="form-control btn btn-primary" type="submit" onClick={this.props.onSubmit} >
             Submit
           </button>
@@ -206,5 +293,17 @@ class ModalKit extends Component {
         )
     }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch: (action) => {
+      dispatch(action);
+    },
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  };
+};
 
-export default ModalKit
+export default connect(mapStateToProps, mapDispatchToProps) (ModalKit)
