@@ -130,7 +130,7 @@ class Header extends Component {
    onSubmit = async () => {
     
     const action = {type:"GET_TOKEN", token:'', isLogIn:'',
-    //username: this.state.registerFormData.email, password: this.state.registerFormData.password1
+    username: this.props.auth.registerValue.email, password: this.props.auth.registerValue.password1
   }
     this.props.dispatch(action)
     // const ERROR = [...this.state.registerFormData.validation.error]
@@ -139,12 +139,12 @@ class Header extends Component {
     //   registerFormError:ERROR,
     //   registerFormErrorMsg:ERROR_MSG
     // })
-    if(!this.props.registerFormData.validation.error.includes(true)){
+    if(!this.props.auth.registerValue.validation.error.includes(true)){
       let formdata =new FormData()
-      // formdata.append('first_name',this.state.registerFormData.name)
-      // formdata.append('last_name',this.state.registerFormData.prenom)
-      // formdata.append('email',this.state.registerFormData.email)
-      // formdata.append('password',this.state.registerFormData.password1)
+      formdata.append('first_name',this.props.auth.registerValue.name)
+      formdata.append('last_name',this.props.auth.registerValue.prenom)
+      formdata.append('email',this.props.auth.registerValue.email)
+      formdata.append('password',this.props.auth.registerValue.password1)
       this.setState({loading:true})
       const requestOptions = {
         method: 'POST',
@@ -308,6 +308,7 @@ class Header extends Component {
             email={"Adresse Email"}
             password={"Mot de passe"}
             confirmpassword={"Confirmer mot de passe"}
+            //registerFormError={console.log('test',this.props)}
             // onChangeRegisterForm={this.validationFormRegister}  
             // registerFormError={this.state.registerFormError}
             // registerFormErrorMsg={this.state.registerFormErrorMsg}

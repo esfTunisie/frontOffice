@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 class ModalKit extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       isModalVisible:false,
       loading:false,
@@ -30,12 +31,14 @@ class ModalKit extends Component {
 
       
     };
+    
   }
 
 
  onChangeRegisterForm=(value,key,index)=>{
   console.log("hello from register");
   let aux = {...this.state.registerFormData}
+  
   aux[key]=value
   if(key==='name'){
     if(value.trim()===''){
@@ -112,15 +115,17 @@ class ModalKit extends Component {
       aux.validation.errorMsg[index]=''
     }
   }
-  this.setState({registerFormData:aux})
-  const ERROR = [...this.state.registerFormData.validation.error]
-  const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
-
-  const action = {type:"GET_ERROR", registerFormError:ERROR, registerFormErrorMsg:ERROR_MSG }
+  
+   this.setState({registerFormData:aux})
+    console.log("aux",aux);
+   const ERROR = [...this.state.registerFormData.validation.error]
+   const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
+  
+  const action = {type:"GET_ERROR", registerValue:aux }
   this.props.dispatch(action)
  }
     render() {
-      console.log(this.props);
+      console.log('state',this.state);
         return (
         <div>
           <Modal
@@ -148,7 +153,7 @@ class ModalKit extends Component {
             <span >{this.props.labelprenom}</span>
             <Input  id="prenom"  onChange={(e)=>this.onChangeRegisterForm(e.target.value,"prenom",1)} 
             value={this.state.registerFormData.prenom}/>
-            {this.state.registerFormError[1]&&<div style={{color:'red'}}>{this.state.registerFormErrorMsg[1]}</div>}
+            {this.props.auth.registerValue&&this.props.auth.registerValue.validation.error[1]?<div style={{color:'red'}}>{this.props.auth.registerValue.validation.errorMsg[1]}</div>:null}
           </div>
           ):null
           }

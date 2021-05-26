@@ -27,8 +27,7 @@ const initialState = {
           case "GET_ERROR":
           return {
             ...state,
-            registerFormError: action.registerFormError,
-            registerFormErrorMsg: action.registerFormErrorMsg,
+            registerValue:action.registerValue
 
           };
         case "GET_OFFRE_DATA":
