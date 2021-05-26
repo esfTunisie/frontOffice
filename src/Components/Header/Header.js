@@ -126,8 +126,8 @@ class Header extends Component {
 
  
    onSubmit = async () => {
-    this.setState({loading:true})
-    const action = {type:"GET_TOKEN", token:'', isLogIn:'',username: this.state.registerFormData.email, password: this.state.registerFormData.password1}
+    
+    const action = {type:"GET_TOKEN", token:'', isLogIn:false,username: this.state.registerFormData.email, password: this.state.registerFormData.password1}
     this.props.dispatch(action)
     const ERROR = [...this.state.registerFormData.validation.error]
     const ERROR_MSG=[...this.state.registerFormData.validation.errorMsg]
@@ -136,6 +136,7 @@ class Header extends Component {
       registerFormErrorMsg:ERROR_MSG
     })
     if(!this.state.registerFormData.validation.error.includes(true)){
+      this.setState({loading:true})
       let formdata =new FormData()
       formdata.append('first_name',this.state.registerFormData.name)
       formdata.append('last_name',this.state.registerFormData.prenom)
@@ -291,7 +292,7 @@ class Header extends Component {
             </h3>
            {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
            <Button onClick={this.showModal}>Démarer</Button>
-
+            
             <ModalKit 
             isModalVisible= {this.state.isModalVisible}
             onOk={this.handleOk}
