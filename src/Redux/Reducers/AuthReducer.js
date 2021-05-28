@@ -18,10 +18,15 @@ const initialState = {
           client: action.client,
           user:action.user
         };
-        case "Offre_DONE":
+        case "OFFRE_DONE":
           return {
             ...state,
             offreDone: action.offreDone,
+          };
+          case "TEMPLATE_DONE":
+          return {
+            ...state,
+            templateDone: action.templateDone,
           };
         case "GET_CLIENT":
           return {

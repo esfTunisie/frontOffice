@@ -201,14 +201,18 @@ class EspaceClient extends React.Component {
          fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
           'Authorization': 'Bearer '+this.props.auth.token}})
          .then(response => response.json()).then(data => {
+          
           const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
           this.props.dispatch(action)
           this.props.history.goBack()  
           })
+         
       }
     })   
     }       
 }
+
+
 
 handleProps=()=>{
   if(this.props.auth.user){
@@ -223,7 +227,38 @@ handleProps=()=>{
   }
   }
 
-  
+  // componentDidMount(){
+  //   this.getMagasinByIdToken()
+    
+  // }
+
+
+  handleSubmit=async()=>{
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify({
+        "username": this.props.auth.,
+        "password": this.state.password
+      }),
+    };
+    
+    await fetch(apiURL+"/api/login_check", requestOptions)
+      .then(response => {
+        if(response.status == 200){
+          
+            
+          }
+       
+        
+        
+
+      })
+   
+  }
 
 
   render() {
@@ -381,7 +416,7 @@ handleProps=()=>{
 
             
               <CardText>
-                <span style={{marginLeft:"18%"}}>_____</span>  
+                <span style={{marginLeft:"6%"}}>{this.props.auth.client &&this.props.auth.client.created_at}</span>  
             </CardText>
            
         
@@ -462,7 +497,7 @@ handleProps=()=>{
         entrepriseFormError={this.state.entrepriseFormError}
         entrepriseFormErrorMsg={this.state.entrepriseFormErrorMsg}
         entrepriseFormData={this.state.entrepriseFormData}
-         nom={"Nom de l'entreprise :"}
+        nomEntreprise={"Nom de l'entreprise :"}
          activite={"Secteur d'activité :"}
          affaire={"Chiffre d'affaire annuel :"}
          rne={"Rne"}

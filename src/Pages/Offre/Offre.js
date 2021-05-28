@@ -364,7 +364,7 @@ class Offre extends Component {
     showModal=(offre)=>{
       
       this.setState({isModalVisible:true})
-      const action = {type:"Offre_DONE",offreDone: offre}
+      const action = {type:"OFFRE_DONE",offreDone: offre}
             this.props.dispatch(action)
     }
     test=(offre)=>{
@@ -393,17 +393,20 @@ class Offre extends Component {
         },
         method:'POST',
         body: formdata
-      }).then(response => 
-      response.json()).then(data=> console.log("data",data))
-        // if(response.status == 201){
-        //    fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
-        //     'Authorization': 'Bearer '+this.props.auth.token}})
-        //    .then(response => response.json()).then(data => {
-        //     const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
-        //     this.props.dispatch(action)
-        //     this.props.history.goBack()  
-        //     })
-        // }
+      }).then(response => {
+        if(response.status == 201){
+          fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+           'Authorization': 'Bearer '+this.props.auth.token}})
+          .then(response => response.json()).then(data => {
+           const action = {type:"GET_TOKEN",token:this.props.auth.token, client:data}
+           this.props.dispatch(action)
+           this.props.history.goBack()  
+           })
+       }
+
+      }
+      
+      )
          
       }       
   }
@@ -433,7 +436,6 @@ class Offre extends Component {
             <Row>
             {this.state.dataOffre && this.state.dataOffre.map((offre)=>(
               <Col md="4">
-              
                 <Card className="card-coin card-plain">
                   <CardHeader>
                     <img
@@ -466,7 +468,7 @@ class Offre extends Component {
               </Col>
               ))}
             </Row>
-            {!this.props.auth.isLogIn ?(
+            {this.props.auth.token==null ?(
               <ModalKit 
                   isModalVisible= {this.state.isModalVisible}
                   onOk={this.handleOk}
@@ -494,7 +496,7 @@ class Offre extends Component {
                 entrepriseFormError={this.state.entrepriseFormError}
                 entrepriseFormErrorMsg={this.state.entrepriseFormErrorMsg}
                 entrepriseFormData={this.state.entrepriseFormData}
-                nom={"Nom de l'entreprise :"}
+                nomEntreprise={"Nom de l'entreprise :"}
                 activite={"Secteur d'activité :"}
                 affaire={"Chiffre d'affaire annuel :"}
                 rne={"Rne"}
