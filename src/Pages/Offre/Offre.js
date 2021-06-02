@@ -17,6 +17,7 @@ import {
   Col,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { apiURL } from "../../Config/config";
 
 // core components
 
@@ -30,7 +31,7 @@ class Offre extends Component {
 
   getOffre = ()=>{
     
-     fetch('http://localhost:8000/api/get_offre',{
+     fetch(apiURL+'/api/get_offre',{
       headers:{
         'Authorization': 'Bearer '+this.props.auth.token
       }
