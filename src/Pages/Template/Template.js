@@ -402,7 +402,7 @@ showModal=(template)=>{
                 <Card className="card-coin card-plain">
                   <CardHeader>
                     <img
-                      alt="..."
+                      alt=""
                       className="img-center img-fluid"
                       src={template.templateImage}
                     />
@@ -432,7 +432,7 @@ showModal=(template)=>{
               </Col>
               ))}
             </Row>
-            {!this.props.auth.token==null ?(
+            {this.props.auth.token==null ?(
               <ModalKit 
                   isModalVisible= {this.state.isModalVisible}
                   onOk={this.handleOk}

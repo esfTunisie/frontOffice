@@ -7,6 +7,10 @@ import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
 import ModalKit from "../uiKit/ModalKit";
 import { Spin } from 'antd';
+import { Carousel } from "bootstrap";
+
+
+
 
 class Header extends Component {
   constructor(props) {
@@ -271,7 +275,7 @@ class Header extends Component {
   render() {
     
       return (
-        
+        <div>
         <div className="page-header header-filter">
         <div className="squares square1" />
         <div className="squares square2" />
@@ -280,38 +284,50 @@ class Header extends Component {
         <div className="squares square5" />
         <div className="squares square6" />
         <div className="squares square7" />
+        
         {this.state.loading?
-        <div className="example">
+        (<div className="example">
         <Spin size="large" />
-      </div>:
-        <Container>
-          <div className="content-center brand">
-            <h1 className="h1-seo">Shifti</h1>
-            <h3 className="d-none d-sm-block">
-            Démarez votre commerce en ligne avec Shifti
-            </h3>
-           {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
-           <Button onClick={this.showModal}>Démarer</Button>
-            
-            <ModalKit 
-            isModalVisible= {this.state.isModalVisible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
-            register={"register"}
-            labelname={"Nom"}
-            labelprenom={"Prénom"}
-            email={"Adresse Email"}
-            password={"Mot de passe"}
-            confirmpassword={"Confirmer mot de passe"}
-            onChangeRegisterForm={this.onChangeRegisterForm}  
-           registerFormError={this.state.registerFormError}
-           registerFormErrorMsg={this.state.registerFormErrorMsg}
-           registerFormData={this.state.registerFormData}
-            onSubmit={this.onSubmit}
-            />
-           
-          </div>
-        </Container>}
+        
+      </div>):(
+      <div>
+        <Carousel />
+        <Container >
+          
+        <div className="content-center brand">
+          <h1 className="h1-seo">Shifti</h1>
+          <h3 className="d-none d-sm-block">
+          Démarez votre commerce en ligne avec Shifti
+          </h3>
+         {/* <IndexRegisterModal  DemarerText={this.state.ButtonText} onSubmit={this.onSubmit.bind(this)} />*/}
+         <Button onClick={this.showModal}>Démarer</Button>
+          
+          <ModalKit 
+          isModalVisible= {this.state.isModalVisible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          register={"register"}
+          labelname={"Nom"}
+          labelprenom={"Prénom"}
+          email={"Adresse Email"}
+          password={"Mot de passe"}
+          confirmpassword={"Confirmer mot de passe"}
+          onChangeRegisterForm={this.onChangeRegisterForm}  
+         registerFormError={this.state.registerFormError}
+         registerFormErrorMsg={this.state.registerFormErrorMsg}
+         registerFormData={this.state.registerFormData}
+          onSubmit={this.onSubmit}
+          />
+         
+        </div>
+      </Container>
+   </div>
+      )
+      
+
+      
+        }
+      </div>
       </div>
       )
   }

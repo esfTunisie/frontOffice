@@ -45,6 +45,8 @@ class EspaceClient extends React.Component {
         this.state = {
             id:props.id,
             password:"",
+            password2:"",
+            old_password:"",
             withIcons: 1,
             isModalVisible:true,
             first_name:"",
@@ -241,15 +243,28 @@ handleProps=()=>{
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify({
-        "username": this.props.auth.,
-        "password": this.state.password
+        "username": this.props.auth.username,
+        "password": this.state.old_password
       }),
     };
     
     await fetch(apiURL+"/api/login_check", requestOptions)
       .then(response => {
         if(response.status == 200){
-          
+          if(this.state.password2 === this.state.password)
+          {
+
+            let formdata = new FormData()
+            formdata.append("password",this.state.password)
+            fetch(apiURL+'/api/update_password',{headers:{
+              'Authorization': "Bearer "+this.props.auth.token
+            },
+            method:'POST',
+            body: formdata
+          }).then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+          }
             
           }
        
@@ -270,6 +285,7 @@ handleProps=()=>{
     //   if (!this.state.user) {
     //     return <div>didn't get a user</div>;
     //   }
+    console.log("old",this.state.old_password);
     return (
       <>
       <Navbar />
@@ -375,6 +391,8 @@ handleProps=()=>{
                                 <Input
                                     placeholder="Old Password"
                                     type="Password"
+                                    value={this.state.old_password}
+                                    onChange={(e)=>this.setState({old_password:e.target.value})}
                                 />
                                 <FormText color="default" tag="span">
                                     Please enter a Same Password.
@@ -386,7 +404,7 @@ handleProps=()=>{
                             <Label sm="3">New Password</Label>
                             <Col sm="9">
                                 <FormGroup>
-                                <Input placeholder="New Password" type="Password" value={this.state.password} onChange={this.updatePassword.bind(this)} />
+                                <Input placeholder="New Password" type="Password" value={this.state.password} onChange={(e)=>this.setState({password:e.target.value})} />
                                 </FormGroup>
                             </Col>
                             </Row>
@@ -394,11 +412,11 @@ handleProps=()=>{
                             <Label sm="3">Confirme Password</Label>
                             <Col sm="9">
                                 <FormGroup>
-                                <Input placeholder="Confirme Password" type="Password"  />
+                                <Input placeholder="Confirme Password" type="Password" value={this.state.password2} onChange={(e)=>this.setState({password2:e.target.value})}  />
                                 </FormGroup>
                             </Col>
                             </Row>
-                            <Button color="primary" onClick={this.updateNewPassword.bind(this)}>Save Changes</Button>
+                            <Button color="primary" onClick={this.handleSubmit.bind(this)} >Save Changes</Button>
           </TabPane>
           <TabPane tabId="withIcons3">
           <Row>
