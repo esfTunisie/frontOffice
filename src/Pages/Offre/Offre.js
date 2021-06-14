@@ -31,11 +31,7 @@ class Offre extends Component {
 
   getOffre = ()=>{
     
-     fetch(apiURL+'/api/get_offre',{
-      headers:{
-        'Authorization': 'Bearer '+this.props.auth.token
-      }
-    }).then(response => response.json()).then(data =>{console.log("datya",data)} )
+     fetch(apiURL+'/get_offre').then(response => response.json()).then(data =>{console.log("datya",data)} )
   }
     
 
@@ -82,7 +78,7 @@ class Offre extends Component {
                     <Row>
                       <Col className="text-center" md="12">
                         <h4 className="text-uppercase">{offre.nom}</h4>
-                        <span>Plan {offre.prix}	</span>
+                        <span>Plan {offre.prix}</span>
                         <hr className="line-primary" />
                       </Col>
                     </Row>
