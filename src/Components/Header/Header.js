@@ -7,7 +7,7 @@ import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
 import ModalKit from "../uiKit/ModalKit";
 import { Spin } from 'antd';
-import { Carousel } from "bootstrap";
+
 
 
 
@@ -197,7 +197,7 @@ class Header extends Component {
         const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:this.state.username, user:dataMagasinJson}
         this.props.dispatch(action) 
         this.setState({loading:false})  
-        window.location='/espace-client'
+        this.props.history.push('/espace-client')
       
     }
     else{
@@ -290,8 +290,8 @@ class Header extends Component {
         <Spin size="large" />
         
       </div>):(
-      <div>
-        <Carousel />
+    
+      
         <Container >
           
         <div className="content-center brand">
@@ -321,7 +321,7 @@ class Header extends Component {
          
         </div>
       </Container>
-   </div>
+  
       )
       
 

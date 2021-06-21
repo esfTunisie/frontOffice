@@ -83,7 +83,7 @@ class Offre extends Component {
 
   getOffre = ()=>{
     
-     fetch('http://localhost:8000/api/get_offre',{
+     fetch(apiURL+'/api/get_offre',{
      
     }).then(response => response.json()).then(data => this.setState({dataOffre:data}) )
   }

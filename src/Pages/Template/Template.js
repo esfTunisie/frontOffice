@@ -82,7 +82,7 @@ class Template extends Component {
 
   getTemplate = ()=>{
     
-    fetch('http://localhost:8000/api/get_templates')
+    fetch(apiURL+'/api/get_templates')
     .then(response => response.json()).then(data => this.setState({dataTemplate:data}) )
  }
  
@@ -369,7 +369,7 @@ showModal=(template)=>{
       
   this.setState({isModalVisible:true})
   const action = {type:"TEMPLATE_DONE",templateDone: template}
-        this.props.dispatch(action)
+   this.props.dispatch(action)
 }
 
 
