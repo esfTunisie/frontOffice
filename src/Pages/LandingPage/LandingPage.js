@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Header from '../../Components/Header/Header';
+import MenuNav from "../../Components/Menu/Menu";
 import Navbar from '../../Components/Navbar/Navabar';
+import Content from '../../Components/Content/Content';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -10,21 +12,17 @@ class LandingPage extends Component {
     this.state = {
     };
   }
- 
+
   render() {
-      return (
-        <>
-        <div className="index-page">
-          <Navbar />
-            <div className="wrapper">
-              <Header />
-                <div className="main">
-                  
-                </div>
-            </div>
-        </div>
-        </>
-      )
+    return (
+      <div>
+
+        <Navbar />
+        <MenuNav />
+        <Header />
+        <Content />
+      </div>
+    )
   }
 }
 
