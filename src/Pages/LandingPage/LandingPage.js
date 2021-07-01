@@ -5,6 +5,7 @@ import Header from '../../Components/Header/Header';
 import MenuNav from "../../Components/Menu/Menu";
 import Navbar from '../../Components/Navbar/Navabar';
 import Content from '../../Components/Content/Content';
+import Footer from '../../Components/Footer/Footer';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class LandingPage extends Component {
         <MenuNav />
         <Header />
         <Content />
+        <Footer />
       </div>
     )
   }

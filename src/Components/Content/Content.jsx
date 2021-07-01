@@ -8,6 +8,9 @@ import visibilite2 from '../../assets/img/visibilite2.png';
 import livraison from '../../assets/img/livraison.png';
 import template from '../../assets/img/template.png';
 import pack from '../../assets/img/pack.png';
+import bondeP1 from '../../assets/img/bondeP1.png';
+import { Carousel } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 
 
 class Content extends Component {
@@ -15,6 +18,12 @@ class Content extends Component {
         size: "large"
     }
     render() {
+        const contentStyle = {
+            color: '#fff',
+            lineHeight: '160px',
+            textAlign: 'center',
+
+        };
         const ColoredLine = ({ color }) => (
             <hr
                 style={{
@@ -149,18 +158,92 @@ class Content extends Component {
                     <Col span={12} className="col-service">
                         <img src={template} className="template" />
                         <h1 className="content-title-template">Nos templates et shops</h1>
+
+
+                        <Carousel autoplay>
+                            <div>
+                                <h3 style={contentStyle}><img src={template} /></h3>
+                            </div>
+                            <div>
+                                <h3 style={contentStyle}><img src={template} /></h3>
+                            </div>
+                            <div>
+                                <h3 style={contentStyle}><img src={template} /></h3>
+                            </div>
+                            <div>
+                                <h3 style={contentStyle}><img src={template} /></h3>
+                            </div>
+                        </Carousel>
                     </Col>
+
+                    <p className="nos-template-button" > Voir tout <RightOutlined /></p>
+
                 </Row>
+                <p className="nos-template-button" > Voir tout <RightOutlined /></p>
 
                 <Row justify="center" className="row-service3">
                     <Col span={12} className="col-service">
                         <img src={pack} className="template1" />
-                        <h1 className="content-title-template">Nos packs</h1>
+                        <h1 className="content-title-template1">Nos packs</h1>
                     </Col>
                 </Row>
 
+                <div className="row-content-pack">
+                    <div className="col-content-pack1">
+                        <h1 className="pack-Starter">Starter </h1>
+                        <p className="text-pack-Starter">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </p>
+                        <p className="bas-pack-Starter">
+                            300dt<span className="span-pack">/Mois</span>
+                        </p>
+                    </div>
+                    <div className="col-content-pack2">
+                        <h1 className="pack-Pioneer">Pioneer </h1>
+                        <p className="text-pack-Pioneer">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </p>
+                        <p className="bas-pack-Pioneer">
+                            1500dt<span className="span-pack">/Mois</span>
+                        </p>
+                    </div>
+                    <div className="col-content-pack3">
+                        <img src={bondeP1} className="bondeP1" />
+                        <h1 className="pack-Gold"> Gold</h1>
+                        <p className="text-pack-Gold">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        </p>
+                        <p className="bas-pack-Gold">
+                            2000dt<span className="span-pack">/Mois</span>
+                        </p>
+                    </div>
+                </div>
 
-            </div>
+                <Row justify="center" className="row-pack">
+                    <Col span={12} className="">
+                        <h1 className="title-desc">Pourquoi Shifti
+                            est le meilleur choix
+                            pour vous</h1>
+                    </Col>
+                    <Col span={12}>
+                        <p className="text-desc">
+                            Avec Wix, vous pouvez créer vous-même un site web gratuit et professionnel. Vous pouvez commencer avec un modèle design et le personnaliser, ou obtenir un site créé pour vous sur-mesure. Bénéficiez d'une solution tout-en-un : hébergement web fiable et gratuit, sécurité maximale, référencement puissant et assistance 24h/24.
+                            Plus de 160 millions de personnes dans le monde ont déjà choisi Wix pour créer un site web gratuit. Faites comme eux, lancez-vous.
+                        </p>
+                        <p className="desc-button" > Commencer <RightOutlined className="icon" /></p>
+                    </Col>
+                </Row>
+
+                {/* <div className="row-content-pack">
+                    <div className="col-content-pack1">
+                    </div>
+                    <div className="col-content-pack2">
+                    </div>
+                    <div className="col-content-pack3">
+                    </div>
+                </div> */}
+
+            </div >
 
         );
     }
