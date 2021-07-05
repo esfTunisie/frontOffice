@@ -59,6 +59,29 @@ src: url("../fonts/gilroy-regular-webfont.woff2");
 
 
 
+/* Menu */
+
+/* Desktop */
+.page-menu{
+padding-left: 10%;
+padding-top: 2%;
+}
+
+  @media screen and (min-width:500px) and (max-width:1024px){
+  .page-menu{
+    padding-left: 7%;
+    padding-top: 7%;
+}
+    }
+
+.position-items{
+  display: flex;
+  justify-content: flex-end;
+  background: #E1E1E1 !important;
+}
+
+
+
 /* header */
 
 .logo-img{
@@ -73,11 +96,36 @@ margin-left: 100vmin;
 }
 .title{
 text-align: center;
-font-size: 340% !important;
+font-size: 55px !important;
 font-family: "PoppinsBold";
 line-height: 1;
 color :#181143;
 }
+
+  @media screen and (min-width:500px) and (max-width:1024px){
+.title{
+text-align: center;
+font-size: 11.4vmin !important;
+font-family: "PoppinsBold";
+line-height: 1;
+color :#181143;
+}
+  }
+
+  @media screen and (width:320px){
+   .page-menu{
+    padding-left: 6%;
+    padding-top: 14%;
+  }
+      .title{
+text-align: center;
+font-size: 11.4vmin !important;
+font-family: "PoppinsBold";
+line-height: 1;
+color :#181143;
+}
+    }
+
 .color-title{
   color: #EC1577;
 }
@@ -103,6 +151,71 @@ color :#181143;
     bottom: 625px;
 }
 
+
+
+
+@media screen and (min-width:360px) and (max-width:480px){
+   .page-menu{
+    padding-left: 23%;
+    padding-top: 12%;
+}
+  .title{
+text-align: center;
+font-size: 15px !important;
+font-family: "PoppinsBold";
+line-height: 1;
+color :#181143;
+}
+  .DesktopShifti2{
+    max-width: 27%;
+    width: 45%;
+    position: relative;
+    left: 14%;
+    bottom: 185px;
+}
+.DesktopShifti1 {
+    max-width: 40%;
+    width: 45%;
+    position: relative;
+    left: 15%;
+    bottom: 170px;
+}
+.shifti-icon {
+    width: 48%;
+    right: 55%;
+    bottom: 49px;
+    position: relative;
+    z-index: -1;
+}
+.row-service1{
+padding-top: 92px;
+}
+.title-row {
+    font-family: "GilroyBold";
+    color: #181143;
+    font-size: 34px;
+}
+.button-service {
+    background-color: #181143;
+    color: white;
+    width: 31%;
+    border-radius: 10px;
+    position: relative;
+    top: 2px;
+}
+.img-width {
+    width: 310%;
+    right: 50%;
+    position: relative;
+    top: 10%;
+}
+.vente2 {
+    position: relative;
+    bottom: 42%;
+    width: 210%;
+    right: 8%;
+}
+}
 .button-header{
   text-align: center;
     font-family: 'GilroyBold';
@@ -115,6 +228,7 @@ background-color: #F99E1F;
     position: relative;
     bottom: 55em;
 }
+
 .ant-btn:hover, .ant-btn:focus, .ant-btn:active{
   background-color: #181143;
   border-color: #181143;
@@ -127,19 +241,6 @@ background-color: #F99E1F;
   padding-left: 20%;
   padding-right: 20%;
   padding-top: 5%;
-}
-
-
-/* Menu */
-
-.page-menu{
-padding-left: 10%;
-padding-top: 2%;
-}
-.position-items{
-  display: flex;
-  justify-content: flex-end;
-  background: #E1E1E1 !important;
 }
 
 /* Content */
@@ -168,6 +269,10 @@ padding-top: 2%;
     position: relative;
     bottom: 52.7vmax;
 }
+.row-service2-resp1{
+      position: relative;
+      bottom: 45.7vmax;
+}
 .row-service3{
    position: relative;
     bottom: 69.4vmax;
@@ -181,6 +286,11 @@ padding-top: 2%;
 .title-row{
 font-family: "GilroyBold";
 color:#181143;
+}
+.title-row-resp1{
+font-family: "GilroyBold";
+    color: #181143;
+    font-size: 3vmin;
 }
 .title-row3{
 font-family:"GilroyBold";
@@ -503,3 +613,25 @@ background-color: #181143;
     top: 40%;
     left: 5%;
 }
+/* @media  only screen  and (min-width:360px) and (max-width:480px){
+  .respensive-1{display:initial  !important;}
+   .respensive-2{display:none !important;}
+   .respensive-3{display:none !important;}
+  }
+  
+  @media screen and (width:320px){
+    .respensive-1{display:none  !important;}
+   .respensive-2{display:initial !important;}
+   .respensive-3{display:none !important;}
+  }
+  
+  @media screen and (min-width:600px) and (max-width:1024px){
+    .respensive-1{display:none  !important;}
+   .respensive-2{display:none !important;}
+   .respensive-3{display:initial !important;}
+  } */
+
+
+
+
+

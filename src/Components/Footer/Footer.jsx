@@ -9,7 +9,8 @@ class Footer extends Component {
         const { TextArea } = Input;
         const size = this.state
         return (
-            <div>
+            <div >
+
                 <Row justify="center" className="footer">
                     <Col span={9} className="col-footer-1">
                         <img src={logofooter} className="logofooter" />
@@ -41,10 +42,8 @@ class Footer extends Component {
                     </Col>
 
                 </Row>
-
-
-
             </div>
+
         );
     }
 }

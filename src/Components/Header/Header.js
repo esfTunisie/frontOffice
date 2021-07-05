@@ -15,6 +15,7 @@ class Header extends Component {
 
     return (
       <div>
+
         <div className="page">
           <h1 className="title">Démarez votre commerce <br />
             en ligne avec <span className="color-title">Shifti</span></h1>
@@ -27,7 +28,11 @@ class Header extends Component {
 
         <img src={DesktopShifti2} className="DesktopShifti2" />
 
+
+
+
       </div>
+
 
     );
   }
