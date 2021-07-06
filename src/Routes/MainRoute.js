@@ -7,6 +7,9 @@ import EspaceClient from "../Pages/EspaceClient/EspaceClient"
 import Template from "../Pages/Template/Template"
 import Offre from "../Pages/Offre/Offre"
 import PrivateRoute from "./PrivateRoute/PrivateRoute"
+import Registration from "../Components/Register/Registration"
+import LoginPage from "../Components/Register/Login/LoginForm"
+import UserInforamtion from "../Components/Register/User/UserInforamtion";
 
 
 const MainRoute = () => {
@@ -15,10 +18,13 @@ const MainRoute = () => {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/registration" component={Registration} />
+        <Route exact path="/loginPage" component={LoginPage} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/espace-client" component={EspaceClient} />
         <Route exact path="/template" component={Template} />
         <Route exact path="/offre" component={Offre} />
+        <Route exact path="/user" component={UserInforamtion} />
       </Switch>
     </Router>
   );

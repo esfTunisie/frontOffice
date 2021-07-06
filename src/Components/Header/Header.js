@@ -5,10 +5,14 @@ import DesktopShifti1 from '../../assets/img/DesktopShifti1.png';
 import DesktopShifti2 from '../../assets/img/DesktopShifti2.png';
 // import { Container, Row, Col } from 'react-bootstrap';
 
-
 class Header extends Component {
-  state = {
-    size: "large"
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  goLogin =()=>{
+    window.location ='/registration'
   }
   render() {
     const size = this.state
@@ -21,7 +25,7 @@ class Header extends Component {
           <img src={iconShifti} className="shifti-icon" />
         </div>
         <div className="button-header">
-          <Button className="button" shape="round" size={size} > C'est parti</Button>
+          <Button onClick={this.goLogin} className="button" shape="round" > C'est parti</Button>
         </div>
         <img src={DesktopShifti1} className="DesktopShifti1" />
 
