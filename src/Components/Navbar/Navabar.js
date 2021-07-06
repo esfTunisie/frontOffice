@@ -11,6 +11,7 @@ class Navbar extends Component {
   render() {
     const { size } = this.state;
     return (
+
       <Menu mode="horizontal" className="position-items">
 
         <Menu.Item key="mail">
@@ -24,11 +25,10 @@ class Navbar extends Component {
             Login
           </Button>
         </Menu.Item>
-
-
-
-
       </Menu>
+
+
+
     );
   }
 }

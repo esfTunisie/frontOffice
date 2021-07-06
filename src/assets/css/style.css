@@ -4,16 +4,37 @@ font-family: "PoppinsBold";
 src: url("../fonts/poppins-black-webfont.woff");
 src: url("../fonts/poppins-black-webfont.woff2");
 }
+
+@font-face {
+font-family: "PoppinsMedium";
+src: url("../fonts/poppins-medium-webfont.woff2");
+src: url("../fonts/poppins-medium-webfont.woff");
+}
+
+@font-face {
+font-family: "PoppinsRegular";
+src: url("../fonts/poppins-regular-webfont.woff");
+src: url("../fonts/poppins-regular-webfont.woff2");
+}
+
+@font-face {
+font-family: "PoppinsSemiBold";
+src: url("../fonts/poppins-semibold-webfont.woff");
+src: url("../fonts/poppins-semibold-webfont.woff2");
+}
+
 @font-face {
 font-family: "GilroyBold";
 src: url("../fonts/gilroy-bold-webfont.woff");
 src: url("../fonts/gilroy-bold-webfont.woff2");
 }
+
 @font-face {
 font-family: "GilroyMedium";
 src: url("../fonts/gilroy-medium-webfont.woff");
 src: url("../fonts/gilroy-medium-webfont.woff2");
 }
+
 @font-face {
 font-family: "GilroyRegular";
 src: url("../fonts/gilroy-regular-webfont.woff");
@@ -51,6 +72,29 @@ src: url("../fonts/gilroy-regular-webfont.woff2");
 
 
 
+/* Menu */
+
+/* Desktop */
+.page-menu{
+padding-left: 10%;
+padding-top: 2%;
+}
+
+  @media screen and (min-width:500px) and (max-width:1024px){
+  .page-menu{
+    padding-left: 7%;
+    padding-top: 7%;
+}
+    }
+
+.position-items{
+  display: flex;
+  justify-content: flex-end;
+  background: #E1E1E1 !important;
+}
+
+
+
 /* header */
 
 .logo-img{
@@ -65,11 +109,36 @@ margin-left: 100vmin;
 }
 .title{
 text-align: center;
-font-size: 340% !important;
+font-size: 55px !important;
 font-family: "PoppinsBold";
 line-height: 1;
 color :#181143;
 }
+
+  @media screen and (min-width:500px) and (max-width:1024px){
+.title{
+text-align: center;
+font-size: 11.4vmin !important;
+font-family: "PoppinsBold";
+line-height: 1;
+color :#181143;
+}
+  }
+
+  @media screen and (width:320px){
+   .page-menu{
+    padding-left: 6%;
+    padding-top: 14%;
+  }
+      .title{
+text-align: center;
+font-size: 11.4vmin !important;
+font-family: "PoppinsBold";
+line-height: 1;
+color :#181143;
+}
+    }
+
 .color-title{
   color: #EC1577;
 }
@@ -95,6 +164,71 @@ color :#181143;
     bottom: 625px;
 }
 
+
+
+
+@media screen and (min-width:360px) and (max-width:480px){
+   .page-menu{
+    padding-left: 23%;
+    padding-top: 12%;
+}
+  .title{
+text-align: center;
+font-size: 15px !important;
+font-family: "PoppinsBold";
+line-height: 1;
+color :#181143;
+}
+  .DesktopShifti2{
+    max-width: 27%;
+    width: 45%;
+    position: relative;
+    left: 14%;
+    bottom: 185px;
+}
+.DesktopShifti1 {
+    max-width: 40%;
+    width: 45%;
+    position: relative;
+    left: 15%;
+    bottom: 170px;
+}
+.shifti-icon {
+    width: 48%;
+    right: 55%;
+    bottom: 49px;
+    position: relative;
+    z-index: -1;
+}
+.row-service1{
+padding-top: 92px;
+}
+.title-row {
+    font-family: "GilroyBold";
+    color: #181143;
+    font-size: 34px;
+}
+.button-service {
+    background-color: #181143;
+    color: white;
+    width: 31%;
+    border-radius: 10px;
+    position: relative;
+    top: 2px;
+}
+.img-width {
+    width: 310%;
+    right: 50%;
+    position: relative;
+    top: 10%;
+}
+.vente2 {
+    position: relative;
+    bottom: 42%;
+    width: 210%;
+    right: 8%;
+}
+}
 .button-header{
   text-align: center;
     font-family: 'GilroyBold';
@@ -107,6 +241,7 @@ background-color: #F99E1F;
     position: relative;
     bottom: 55em;
 }
+
 .ant-btn:hover, .ant-btn:focus, .ant-btn:active{
   background-color: #181143;
   border-color: #181143;
@@ -119,19 +254,6 @@ background-color: #F99E1F;
   padding-left: 20%;
   padding-right: 20%;
   padding-top: 5%;
-}
-
-
-/* Menu */
-
-.page-menu{
-padding-left: 10%;
-padding-top: 2%;
-}
-.position-items{
-  display: flex;
-  justify-content: flex-end;
-  background: #E1E1E1 !important;
 }
 
 /* Content */
@@ -160,6 +282,10 @@ padding-top: 2%;
     position: relative;
     bottom: 52.7vmax;
 }
+.row-service2-resp1{
+      position: relative;
+      bottom: 45.7vmax;
+}
 .row-service3{
    position: relative;
     bottom: 69.4vmax;
@@ -173,6 +299,11 @@ padding-top: 2%;
 .title-row{
 font-family: "GilroyBold";
 color:#181143;
+}
+.title-row-resp1{
+font-family: "GilroyBold";
+    color: #181143;
+    font-size: 3vmin;
 }
 .title-row3{
 font-family:"GilroyBold";
@@ -257,11 +388,20 @@ padding-top: 2%;
 }
 .content-title-template{
       text-align: center;
-    font-size: 340% !important;
+    font-size: 11vmin !important;
     font-family: "PoppinsBold";
     line-height: 1;
     color: #181143;
-    bottom: 29%;
+    bottom: 17%;
+    position: relative;
+}
+.content-title-template1{
+      text-align: center;
+    font-size: 11vmin !important;
+    font-family: "PoppinsBold";
+    line-height: 1;
+    color: #181143;
+    bottom: 28%;
     position: relative;
 }
 .template1{
@@ -394,3 +534,242 @@ text-align: center;
   margin-top: 5%;
   font-family:"PoppinsBold" ;
 }
+ .col-content-pack1{
+  background-image:url('../img/pack1.png');
+    width: 30%;
+    height: 200px;
+      border-bottom-right-radius: 30px;
+          border-bottom-left-radius: 30px;
+              border-top-right-radius: 30px;
+}
+.col-content-pack2{
+  background-image: url('../img/pack2.png');
+    width: 30%;
+    height: 395px;
+      border-bottom-right-radius: 30px;
+          border-bottom-left-radius: 30px;
+          border-top-right-radius: 30px;
+}
+.col-content-pack3{
+  background-image: url('../img/pack3.png');
+    width: 30%;
+    height: 595px;
+      border-bottom-right-radius: 30px;
+      border-bottom-left-radius: 30px;
+      border-top-right-radius: 30px;
+} 
+.row-content-pack{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    position: relative;
+    bottom: 1050px;
+}
+.pack-Gold{
+color:#F99E1F;
+text-align:center;
+font-family:"GilroyBold";
+}
+.text-pack-Gold{
+font-family:"GilroyMedium";
+color:white;
+font-size:20px;
+top:20%;
+padding-left: 10%;
+padding-right: 10%;
+position: relative;
+}
+.bas-pack-Gold{
+font-family:"GilroyBold";
+color:white;
+font-size:20px;
+    text-align: center;
+    top: 47%;
+    position: relative;
+}
+.pack-Pioneer{
+color:#EC1577;
+text-align:center;
+font-family:"GilroyBold";
+    top: 15%;
+    position: relative;
+}
+.text-pack-Pioneer{
+font-family:"GilroyMedium";
+color:white;
+font-size:20px;
+top:35%;
+padding-left: 10%;
+padding-right: 10%;
+position: relative;
+}
+.bas-pack-Pioneer{
+font-family:"GilroyBold";
+color:white;
+font-size:20px;
+    text-align: center;
+    top: 58%;
+    position: relative;
+}
+.pack-Starter{
+  color:#EC1577;
+text-align:center;
+font-family:"GilroyBold";
+    top: 15%;
+    position: relative;
+}
+.text-pack-Starter{
+font-family:"GilroyMedium";
+color:white;
+font-size:20px;
+top:15%;
+padding-left: 10%;
+padding-right: 10%;
+position: relative;
+}
+.bas-pack-Starter{
+font-family:"GilroyBold";
+color:white;
+font-size:20px;
+    text-align: center;
+    top: 18%;
+    position: relative;
+}
+.span-pack{
+  font-size:14px
+}
+.row-pack{
+   position: relative;
+    bottom: 60vmax;
+    background-color: #181143;
+    padding-top: 2%;
+}
+.title-desc{
+  font-family:"GilroyBold";
+color:white;
+font-size:40px;
+padding: 20px 140px 75px 99px;
+}
+.text-desc{
+    font-family: "GilroyRegular";
+    color:white;
+    font-size: 16px;
+    align-items: center;
+    text-align: justify;
+    padding: 20px 95px 75px 40px;
+}
+.nos-template-button{
+  color:rgb(10, 10, 10);
+  font-size: 20px;
+  font-family:  "PoppinsBold";
+padding-left: 5%;
+text-align: center;
+position:relative;
+bottom:970px;
+}
+.desc-button{
+  color:white;
+  font-size: 20px;
+  font-family: "GilroyMedium";
+padding-left: 5%;
+}
+.icon{
+      bottom: 5px;
+    position: relative;
+}
+.footer{
+  background-color:#F99E1F;
+   width: 100%;
+    height: 400px;
+    position:relative;
+      bottom: 923px;
+}
+.col-footer-1{
+  background-color: #F99E1F;
+}
+.col-footer-2{
+  background-color:white;
+}
+.text-footer1{
+  color:white;
+padding:10%;
+font-family: "PoppinsMedium";
+}
+.text-footer2{
+  color:white;
+padding:10%;
+}
+.row-row-footer{
+  padding:10%;
+}
+.icon-footer{color:#EC1577;
+  font-size:15px;
+}
+.title-color-footer{
+  color:#EC1577;
+  font-size:20px;
+  font-family:  "PoppinsSemiBold";
+}
+.newslater{
+    position: relative;
+    top: 40% ;
+    color:#181143 ;
+        text-decoration: underline;
+}
+.button-footer{
+    color: white;
+    position: relative;
+    left: 77%;
+    top: 15%;
+    font-family: "PoppinsMedium";
+}
+.color-title-footer{
+  color:#181143;
+      font-family: "PoppinsRegular";
+      font-size: 15px;
+}
+
+.logofooter{
+      position: relative;
+    top: 9%;
+    left: 10%;
+}
+.input-footer{
+    border-radius: 30px;
+    background-color: rgb(24, 17, 67);
+    color: white;
+    position: relative;
+    top: 40%;
+    width: 70%;
+}
+.subscribe{
+background-color: #181143;
+    color: white;
+    width: 23%;
+    border-radius: 20px;
+    position: relative;
+    top: 40%;
+    left: 5%;
+}
+/* @media  only screen  and (min-width:360px) and (max-width:480px){
+  .respensive-1{display:initial  !important;}
+   .respensive-2{display:none !important;}
+   .respensive-3{display:none !important;}
+  }
+  
+  @media screen and (width:320px){
+    .respensive-1{display:none  !important;}
+   .respensive-2{display:initial !important;}
+   .respensive-3{display:none !important;}
+  }
+  
+  @media screen and (min-width:600px) and (max-width:1024px){
+    .respensive-1{display:none  !important;}
+   .respensive-2{display:none !important;}
+   .respensive-3{display:initial !important;}
+  } */
+
+
+
+
+
