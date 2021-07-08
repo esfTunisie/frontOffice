@@ -23,18 +23,14 @@ class Header extends Component {
         <div className="page">
           <h1 className="title">Démarez votre commerce <br />
             en ligne avec <span className="color-title">Shifti</span></h1>
-          <img src={iconShifti} className="shifti-icon" />
+            <center>
+              <Button onClick={this.goLogin} className="button-header" shape="round" > C'est parti</Button>
+            </center>
+          <img src={iconShifti} className="shifti-background-icon" />
+          <img src={iconShifti} className="shifti-background-icon-hidden" />
+          <img src={DesktopShifti1} className="DesktopShifti1" />
+          <img src={DesktopShifti2} className="DesktopShifti2" />
         </div>
-        <div className="button-header">
-          <Button onClick={this.goLogin} className="button" shape="round" > C'est parti</Button>
-        </div>
-        <img src={DesktopShifti1} className="DesktopShifti1" />
-
-        <img src={DesktopShifti2} className="DesktopShifti2" />
-
-
-
-
       </div>
 
 
