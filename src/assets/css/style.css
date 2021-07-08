@@ -500,7 +500,7 @@
   }
 
   .temp-shop-section-title {
-    background: url('../img/template.png') no-repeat 20% 50%;
+    background: url('../img/template.png') no-repeat 23% 50%;
     background-size: 145px 145px;
     font-family: "GilroyBold";
     font-size: 65px;
@@ -959,7 +959,7 @@
     }
     /* Pack */
     .pack-section-title {
-      background: url('../img/pack.png') no-repeat 38% 50%;
+      background: url('../img/pack.png') no-repeat 35% 50%;
       background-size: 145px 145px;
     }
     .circle-pack-img {
@@ -1105,8 +1105,8 @@
       display: none;
     }
     .temp-shop-section-title {
-      background: url('../img/template.png') no-repeat 0% 35%;
-      background-size: 120px 120px;
+      background: url('../img/template.png') no-repeat 0% 50%;
+      background-size: 150px 150px;
       font-size: 60px;
     }
     .carousel {
@@ -1132,7 +1132,7 @@
     }
     /* Packs */
     .pack-section-title {
-      background: url('../img/pack.png') no-repeat 32% 50%;
+      background: url('../img/pack.png') no-repeat 28% 50%;
       background-size: 130px 130px;
       font-size: 60px;
     }
@@ -1395,10 +1395,10 @@
       display: none;
     }
     .temp-shop-section-title {
-      background: url('../img/template.png') no-repeat 10% 50%;
+      background: url('../img/template.png') no-repeat 5% 50%;
       background-size: 100px 100px;
       font-size: 30px;
-      padding: 90px 5%;
+      padding: 90px 0;
     }
     .carousel {
       width: 100%;
@@ -1419,7 +1419,7 @@
     }
     /* Packs */
     .pack-section-title {
-      background: url('../img/pack.png') no-repeat 33% 50%;
+      background: url('../img/pack.png') no-repeat 28% 50%;
       background-size: 90px 90px;
       font-size: 40px;
       padding: 100px 0;
