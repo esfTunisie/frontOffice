@@ -45,6 +45,11 @@ const RegisterForm =(props)=>{
     const [phoneError, setphoneError] = useState('')
     const [passwordRegisterError, setpasswordRegisterError] = useState('')
     const [confirmPasswordRegisterError, setconfirmPasswordRegisterError] = useState('')
+    const [emailLogin, setEmailLogin] = useState('')
+    const [passwordLogin, setpasswordLogin] = useState('')
+    const [loginError, setloginError] = useState('')
+    const [passwordloginError, setpasswordloginError] = useState('')
+
 
 
 
@@ -157,12 +162,62 @@ const RegisterForm =(props)=>{
                     window.location='/loginPage'
                 }, 250);
               }
-    
             })
             .catch(error => console.log('error', error));
     
         }
     }
+
+
+
+   const handleSubmit=async()=>{
+    
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: JSON.stringify({
+            "username": emailLogin,
+            "password": passwordLogin
+          }),
+        };
+        
+        await fetch(apiURL+"/api/login_check", requestOptions)
+          .then(response => {
+            if(response.status == 200){
+              response.text().then(result =>{
+                const str = JSON.stringify(result).substring(14)
+                const newStr = str.substring(0, str.length - 4)
+                fetch(apiURL+"/api/getMagasinByIdToken", {headers: {
+                  'Authorization': 'Bearer '+newStr}})
+                 .then(response => response.json()).then(data => {
+                   console.log("data",data);
+                    const action = {type:"GET_TOKEN", token:newStr, isLogIn:true,username:emailLogin, client:data}
+                    props.dispatch(action)
+                   window.location= '/'
+                 
+                 })
+              })
+      
+            }
+            else{
+                setloginError("mismatch data")
+              const action = {type:"GET_TOKEN", token:'', isLogIn:false }
+                this.props.dispatch(action)
+                
+            }
+          })
+          .catch(error => console.log('error', error));
+          if(passwordLogin == '' || passwordLogin == null){
+            setpasswordloginError("*required")
+        }
+        if(emailLogin == '' || emailLogin == null){
+            setloginError("*required")
+        }
+        
+       
+      }
 
 
 
@@ -202,9 +257,11 @@ const RegisterForm =(props)=>{
                 </div>
               
                 <div className='register-form-input'>
-                    <Input placeholder='Adresse email' className="register-form-input-style" />
-                    <Input.Password  placeholder='Mot de passe' className="register-form-input-style" />
-                    <Row className='login-form-button'><Button className='login-form-button-style'>S'identifier</Button></Row>
+                    <Input placeholder='Adresse email'onChange={(e)=>setEmailLogin(e.target.value)}  className="register-form-input-style" />
+                    {loginError&&<div className="error-user-steps" style={{color:'red'}}>{loginError}</div>}
+                    <Input.Password  placeholder='Mot de passe' onChange={(e)=>setpasswordLogin(e.target.value)} className="register-form-input-style" />
+                    {passwordloginError&&<div className="error-user-steps" style={{color:'red'}}>{passwordloginError}</div>}
+                    <Row className='login-form-button'><Button className='login-form-button-style' onClick={handleSubmit}>S'identifier</Button></Row>
                     <span onClick={registration} className='register-form-sign_in'> Sign up</span>
                 </div>
             </div>

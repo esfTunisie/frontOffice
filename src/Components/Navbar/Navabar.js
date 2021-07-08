@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { Menu, Drawer } from 'antd';
 import { UserOutlined, MenuOutlined, TeamOutlined, MailOutlined } from '@ant-design/icons';
+import { connect } from "react-redux"
 import { Button } from 'antd';
 const { SubMenu } = Menu;
 
 class Navbar extends Component {
-  state = {
-    size: 'large',
-    visible:false
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible:false,
+      size: 'large',
+    };  
+  }
 
   showDrawer = () => {
     this.setState({visible:true})
@@ -82,12 +87,25 @@ class Navbar extends Component {
               <a href="#" className="topbar-menu">Contact <span className="mobileVisible"><TeamOutlined /></span></a>
             </div>
             <Button shape="round" className="btn-login" icon={<UserOutlined className="login-icon"/>} size={size} >
-              <span className="mobileHidden"> Login </span> 
+              {this.props.auth && this.props.auth.username?<span className="mobileHidden"> {this.props.auth.username} </span>:<span className="mobileHidden"> Login </span> }
             </Button>
         </div>
       </div>
     );
   }
 }
-
-export default Navbar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch: (action) => {
+      dispatch(action);
+    },
+  };
+  };
+  const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+   
+  };
+  };
+  
+export default connect(mapStateToProps, mapDispatchToProps) (Navbar);
