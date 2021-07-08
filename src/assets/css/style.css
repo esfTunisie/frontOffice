@@ -1540,3 +1540,110 @@
       left: 2%;
     }
   }
+
+  .ant-select-selector{
+    width: 100% !important;
+    height: 55px !important;
+    border-radius: 55px !important;
+    margin-bottom: 2% !important;
+    text-align: center !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .register-form-content-steps-1{
+    width: 50%;
+    height: 100vh;
+    text-align: center;
+    padding-top: 5%;
+  }
+  .login-form-button-style-steps-1{
+    width: 60%;
+    border-radius: 55px;
+    background-color: #181143;
+    color: white;
+    height: 55px;
+    font-family:"PoppinsBold" ;
+  }
+  .error-user-steps{
+    font-size: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 20%;
+  }
+  .login-form-button-steps-1{
+      align-items: center;
+      justify-content: center;
+      padding-top: 5%;
+      padding-bottom: 5%;
+  }
+  .content-blue-page{
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    margin-top: 30%;
+  }
+  .user-rubrique{
+    cursor: pointer;
+    font-size: 32px;
+    color: #FB9D19;
+    font-family: 'GilroyBold';
+    margin-top: 5%;
+  }
+  .user-rubrique-selected{
+    cursor: pointer;
+    font-size: 32px;
+    color: #EC1577;
+    font-family: 'GilroyBold';
+    margin-top: 5%;
+  }
+  .mobileHidden >a{
+    color: whitesmoke !important;
+  }
+  .btn-user{
+    padding: 0px 30px 0px 40px!important;
+    background-color: #BABABA!important;
+    color: white!important;
+    font-size: 14px!important;
+    border: none!important;
+    box-shadow: 0 0!important;
+    height: 30px!important;
+  }
+
+  ul{
+    padding: 0;
+    list-style: none;
+    background: #f2f2f2;
+}
+ul li{
+    display: inline-block;
+    position: relative;
+    line-height: 21px;
+    text-align: left;
+}
+ul li a{
+    display: block;
+    padding: 8px 25px;
+    color: #333;
+    text-decoration: none;
+}
+ul li a:hover{
+    color: #fff;
+    background: #939393;
+}
+ul li ul.dropdown{
+    min-width: 100%; /* Set width of the dropdown */
+    display: none;
+    position: absolute;
+    z-index: 999;
+    left: 0;
+}
+ul li:hover ul.dropdown{
+    display: block;	/* Display the dropdown */
+}
+ul li ul.dropdown li{
+    display: block;
+}
+ 
+ 

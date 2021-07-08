@@ -24,7 +24,7 @@ const MainRoute = () => {
         <Route exact path="/espace-client" component={EspaceClient} />
         <Route exact path="/template" component={Template} />
         <Route exact path="/offre" component={Offre} />
-        <Route exact path="/user" component={UserInforamtion} />
+        <PrivateRoute exact path="/user" component={UserInforamtion} />
       </Switch>
     </Router>
   );

@@ -2,13 +2,18 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Navabar from "../../Components/Navbar/Navabar";
 
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-                <Component {...props} />
+      <div>
+        <Navabar />
+        <Component {...props} />
+        
+      </div>
     }
   />
 );

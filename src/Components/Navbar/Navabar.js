@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  Link
+} from "react-router-dom";
 import { Menu, Drawer } from 'antd';
 import { UserOutlined, MenuOutlined, TeamOutlined, MailOutlined } from '@ant-design/icons';
 import { connect } from "react-redux"
@@ -13,6 +16,46 @@ class Navbar extends Component {
       visible:false,
       size: 'large',
     };  
+  }
+  goLogin=()=>{
+    window.location='/loginPage'
+  }
+  goUser=()=>{
+    window.location='/user'
+  }
+  logout=()=>{
+    const action = {type:"LOGOUT",token:null, client:null, user:null,isLogIn:null, username:null}
+    this.props.dispatch(action)
+    window.location='/'
+  }
+  showMenuConnected =()=>{
+    if(this.props.auth && this.props.auth.username){
+      return(
+        <Button shape="round" className="btn-user"  size={this.state.size} >
+      <ul className='btn-user'>
+      <li>
+            <p>{this.props.auth.username}</p>
+            <ul class="dropdown">
+                <li onClick={this.goUser}><a href="#">Profile</a></li>
+                <li onClick={this.logout}><a href="#">Déconnection</a></li>
+               
+            </ul>
+        </li>
+      </ul>
+      </Button>
+        
+      )
+    }
+    else{
+      return(
+        <Button onClick={this.goLogin} shape="round" className="btn-login" icon={<UserOutlined className="login-icon"/>} size={this.state.size} >
+              <span className="mobileHidden"> Login </span>
+        </Button>
+        
+      )
+    }
+
+ 
   }
 
   showDrawer = () => {
@@ -86,9 +129,9 @@ class Navbar extends Component {
               <a href="#" className="topbar-menu">Devenir partenaire <span className="mobileVisible"><TeamOutlined /></span></a>
               <a href="#" className="topbar-menu">Contact <span className="mobileVisible"><TeamOutlined /></span></a>
             </div>
-            <Button shape="round" className="btn-login" icon={<UserOutlined className="login-icon"/>} size={size} >
-              {this.props.auth && this.props.auth.username?<span className="mobileHidden"> {this.props.auth.username} </span>:<span className="mobileHidden"> Login </span> }
-            </Button>
+              {/* {this.props.auth && this.props.auth.username?<span className="mobileHidden"> <Link to='/user'>{this.props.auth.username}</Link> </span>:<span className="mobileHidden"> Login </span> } */}
+              {this.showMenuConnected()}
+           
         </div>
       </div>
     );
