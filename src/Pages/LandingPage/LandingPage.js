@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Header from '../../Components/Header/Header';
-import MenuNav from "../../Components/Menu/Menu";
+
 import Navbar from '../../Components/Navbar/Navabar';
+import MenuNav from "../../Components/Menu/Menu";
+import Header from '../../Components/Header/Header';
 import Content from '../../Components/Content/Content';
 import Footer from '../../Components/Footer/Footer';
 
@@ -16,8 +17,7 @@ class LandingPage extends Component {
 
   render() {
     return (
-      <div>
-
+      <div className="scroll-hide">
         <Navbar />
         <MenuNav />
         <Header />
