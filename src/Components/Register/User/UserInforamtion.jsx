@@ -6,13 +6,17 @@ import RegisterForm from "../registerForm";
 
 
 const UserInformation = (props) => {
-   return(
+    console.log(props);
+  
+        return(
        
-       <Row>
-           <BluePage userInformation={true} login={false} register={false} />
-           <RegisterForm userInformation={true} login={false} register={false} />
-       </Row>
-   )
+            <Row>
+                <BluePage userInformation={true} login={false} register={false} />
+                <RegisterForm userInformation={true} login={false} register={false} />
+            </Row>
+        )
+
+
 }
     
 

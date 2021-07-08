@@ -3,7 +3,8 @@ const initialState = {
     dataOffre:null,
     isLogIn:false,
     client:null,
-    offreDone:null
+    offreDone:null,
+    steps:3
   };
   
   function AuthReducer(state = initialState, action) {
@@ -38,6 +39,11 @@ const initialState = {
             ...state,
             dataOffre: action.value,
           };
+          case "CHANGE_STEPS":
+            return {
+              ...state,
+              steps: action.steps,
+            };
       case "LOGOUT":
         return {
           token: action.token,

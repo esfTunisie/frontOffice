@@ -413,6 +413,7 @@ padding-top: 2%;
   background-color: #181144;
   width: 50%;
   height: 100vh;
+  border-right: 5px solid #FB9D19;
 }
 .blue-page-image{
   width: 85%;
@@ -768,6 +769,63 @@ background-color: #181143;
    .respensive-2{display:none !important;}
    .respensive-3{display:initial !important;}
   } */
+  .ant-select-selector{
+    width: 100% !important;
+    height: 55px !important;
+    border-radius: 55px !important;
+    margin-bottom: 2% !important;
+    text-align: center !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .register-form-content-steps-1{
+    width: 50%;
+    height: 100vh;
+    text-align: center;
+    padding-top: 5%;
+  }
+  .login-form-button-style-steps-1{
+    width: 60%;
+    border-radius: 55px;
+    background-color: #181143;
+    color: white;
+    height: 55px;
+    font-family:"PoppinsBold" ;
+  }
+  .error-user-steps{
+    font-size: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 20%;
+  }
+  .login-form-button-steps-1{
+      align-items: center;
+      justify-content: center;
+      padding-top: 5%;
+      padding-bottom: 5%;
+  }
+  .content-blue-page{
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    margin-top: 30%;
+  }
+  .user-rubrique{
+    cursor: pointer;
+    font-size: 32px;
+    color: #FB9D19;
+    font-family: 'GilroyBold';
+    margin-top: 5%;
+  }
+  .user-rubrique-selected{
+    cursor: pointer;
+    font-size: 32px;
+    color: #EC1577;
+    font-family: 'GilroyBold';
+    margin-top: 5%;
+  }
 
 
 
